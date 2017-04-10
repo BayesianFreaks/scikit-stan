@@ -4,7 +4,7 @@ import pystan as ps
 from ..base import BaseModel, BaseStanData
 
 
-class GLMStanData(BaseStanData):
+class RegressionStanData(BaseStanData):
     def __init__(self, x: np.array, y: np.array, shrinkage: float):
         super().__init__()
         assert len(y.shape) == 1
@@ -28,12 +28,12 @@ class RegressionModelMixin(BaseModel):
         return ps.stan(
             model_code=self.model_code,
             data=self.preprocess(
-                GLMStanData(x, y, self.shrinkage)
+                RegressionStanData(x, y, self.shrinkage)
             ).data
         )
 
     @staticmethod
-    def preprocess(dat: GLMStanData) -> GLMStanData:
+    def preprocess(dat: RegressionStanData) -> RegressionStanData:
         return dat
 
 
@@ -68,7 +68,7 @@ class LinearRegression(RegressionModelMixin):
     '''
 
     @staticmethod
-    def preprocess(dat: GLMStanData) -> GLMStanData:
+    def preprocess(dat: RegressionStanData) -> RegressionStanData:
         return dat.append(sigma_upper=dat['y'].std())
 
 
