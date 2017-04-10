@@ -1,6 +1,6 @@
+from abc import ABCMeta, abstractstaticmethod
 from collections import UserDict
 
-from abc import ABCMeta
 
 class BaseStanData(UserDict):
     def append(self, **kwargs):
@@ -12,3 +12,7 @@ class BaseStanData(UserDict):
 
 class BaseModel(metaclass=ABCMeta):
     model_code: str
+
+    @abstractstaticmethod
+    def preprocess(dat: BaseStanData) -> BaseStanData:
+        pass
