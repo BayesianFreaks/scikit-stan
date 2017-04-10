@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-import pir.utils.functions
+import skstan.utils.functions
 
 
 class TestFunctions(TestCase):
@@ -8,4 +8,4 @@ class TestFunctions(TestCase):
         pass
 
     def test_hello(self):
-        self.assertEqual('hello', pir.utils.functions.get_hello())
+        self.assertEqual('hello', skstan.utils.functions.get_hello())
