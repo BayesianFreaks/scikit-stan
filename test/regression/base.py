@@ -14,7 +14,10 @@ class TestRegressionModelMixin(TestCase):
             10
         )
         self.assertEqual(dat1, RegressionModelMixin.preprocess(dat1))
-
+        self.assertRaises(
+            ValueError,
+            lambda: RegressionModelMixin(shrinkage=-1)
+        )
 
 class TestRegressionStanData(TestCase):
     def setUp(self):
@@ -50,14 +53,10 @@ class TestRegressionStanData(TestCase):
             'shrinkage': 10
         }
 
-        self.negative_shrinkage = {
-            'x': np.ndarray(shape=(2, 2)),
-            'y': np.ndarray(shape=(2,)),
-            'shrinkage': -10
-        }
+
 
     def test_constructor(self):
-        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.x_dim_not_2))
-        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.y_dim_not_1))
-        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.row_number_mismatch))
-        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.negative_shrinkage))
+        self.assertRaises(ValueError, lambda: RegressionStanData(**self.x_dim_not_2))
+        self.assertRaises(ValueError, lambda: RegressionStanData(**self.y_dim_not_1))
+        self.assertRaises(ValueError, lambda: RegressionStanData(**self.row_number_mismatch))
+
