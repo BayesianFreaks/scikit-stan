@@ -10,6 +10,7 @@ class RegressionStanData(BaseStanData):
         super().__init__()
         assert len(y.shape) == 1
         assert len(x.shape) == 2
+        assert y.shape[0] == x.shape[0]
         assert shrinkage >= 0
 
         self.data = {

@@ -9,9 +9,55 @@ from skstan.regression.base import RegressionStanData
 class TestRegressionModelMixin(TestCase):
     def test_preprocess(self):
         dat1 = RegressionStanData(
-            np.array([[1, 1, ], [2, 2, ]]),
-            np.array([3, 3]),
+            np.ndarray(shape=(2, 2)),
+            np.ndarray(shape=(2,)),
             10
         )
         self.assertEqual(dat1, RegressionModelMixin.preprocess(dat1))
-        
+
+
+class TestRegressionStanData(TestCase):
+    def setUp(self):
+        self.good = {
+            'x': np.ndarray(shape=(2, 2)),
+            'y': np.ndarray(shape=(2,)),
+            'shrinkage': 10
+        }
+
+        self.res_good = {
+            'x': np.ndarray(shape=(2, 2)),
+            'y': np.ndarray(shape=(2,)),
+            'n': 2,
+            'f': 2,
+            'shrinkage': 10
+        }
+
+        self.x_dim_not_2 = {
+            'x': np.ndarray(shape=(2, 2, 2)),
+            'y': np.ndarray(shape=(2,)),
+            'shrinkage': 10
+        }
+
+        self.y_dim_not_1 = {
+            'x': np.ndarray(shape=(2, 2)),
+            'y': np.ndarray(shape=(2, 2)),
+            'shrinkage': 10
+        }
+
+        self.row_number_mismatch = {
+            'x': np.ndarray(shape=(2, 2)),
+            'y': np.ndarray(shape=(3,)),
+            'shrinkage': 10
+        }
+
+        self.negative_shrinkage = {
+            'x': np.ndarray(shape=(2, 2)),
+            'y': np.ndarray(shape=(2,)),
+            'shrinkage': -10
+        }
+
+    def test_constructor(self):
+        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.x_dim_not_2))
+        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.y_dim_not_1))
+        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.row_number_mismatch))
+        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.negative_shrinkage))
