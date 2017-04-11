@@ -50,7 +50,6 @@ class LogisticRegression(RegressionModelMixin):
         parameters{
             vector[f] alpha;
             real beta;
-            real<lower=0> sigma;
         }
         transformed parameters{
             vector[n] yp;
@@ -79,7 +78,6 @@ class PoissonRegression(RegressionModelMixin):
         parameters{
             vector[f] alpha;
             real beta;
-            real<lower=0> sigma;
         }
         transformed parameters{
             vector[n] yp;
