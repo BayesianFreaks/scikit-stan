@@ -13,6 +13,9 @@ class BaseStanData(UserDict):
 class BaseModel(metaclass=ABCMeta):
     model_code: str
 
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
     @abstractstaticmethod
     def preprocess(dat: BaseStanData) -> BaseStanData:
         pass

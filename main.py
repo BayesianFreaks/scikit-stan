@@ -1,12 +1,12 @@
 import numpy as np
 
-from skstan.linear_models import PoissonRegression
+from skstan.regression.linear_models import LinearRegression
 
 if __name__ == '__main__':
-    x = np.array([[1, 2], [6, 5]])
+    x = np.array([[1, 2, 5, 3, 2], [6, 5, 1, 1, 1]])
     y = np.array([1, 0])
 
-    glm = PoissonRegression(shrinkage=10)
+    glm = LinearRegression(shrinkage=10, chains=8)
 
     stanfit = glm.fit(x, y)
 
