@@ -19,6 +19,7 @@ class TestRegressionModel(TestCase):
             lambda: RegressionModel(shrinkage=-1)
         )
 
+
 class TestRegressionStanData(TestCase):
     def setUp(self):
         self.good = {
@@ -53,10 +54,7 @@ class TestRegressionStanData(TestCase):
             'shrinkage': 10
         }
 
-
-
     def test_constructor(self):
         self.assertRaises(ValueError, lambda: RegressionStanData(**self.x_dim_not_2))
         self.assertRaises(ValueError, lambda: RegressionStanData(**self.y_dim_not_1))
         self.assertRaises(ValueError, lambda: RegressionStanData(**self.row_number_mismatch))
-
