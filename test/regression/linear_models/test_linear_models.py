@@ -15,6 +15,10 @@ class TestLinearRegression(TestCase):
         }
 
     def test_preprocess(self):
+        """
+        Test for overrided method `preprocess`.
+        :return:
+        """
         self.assertAlmostEqual(
             LinearRegression.preprocess(
                 RegressionStanData(**self.dat)

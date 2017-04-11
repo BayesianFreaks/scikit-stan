@@ -8,6 +8,10 @@ from skstan.regression.base import RegressionStanData
 
 class TestRegressionModel(TestCase):
     def test_preprocess(self):
+        """
+        Check whether constructor is moving properly.
+        :return:
+        """
         dat1 = RegressionStanData(
             np.ndarray(shape=(2, 2)),
             np.ndarray(shape=(2,)),
@@ -55,6 +59,10 @@ class TestRegressionStanData(TestCase):
         }
 
     def test_constructor(self):
+        """
+        Test of shape assertion
+        :return:
+        """
         self.assertRaises(ValueError, lambda: RegressionStanData(**self.x_dim_not_2))
         self.assertRaises(ValueError, lambda: RegressionStanData(**self.y_dim_not_1))
         self.assertRaises(ValueError, lambda: RegressionStanData(**self.row_number_mismatch))
