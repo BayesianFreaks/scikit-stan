@@ -2,21 +2,21 @@ from unittest import TestCase
 
 import numpy as np
 
-from skstan.regression.base import RegressionModelMixin
+from skstan.regression.base import RegressionModel
 from skstan.regression.base import RegressionStanData
 
 
-class TestRegressionModelMixin(TestCase):
+class TestRegressionModel(TestCase):
     def test_preprocess(self):
         dat1 = RegressionStanData(
             np.ndarray(shape=(2, 2)),
             np.ndarray(shape=(2,)),
             10
         )
-        self.assertEqual(dat1, RegressionModelMixin.preprocess(dat1))
+        self.assertEqual(dat1, RegressionModel.preprocess(dat1))
         self.assertRaises(
             ValueError,
-            lambda: RegressionModelMixin(shrinkage=-1)
+            lambda: RegressionModel(shrinkage=-1)
         )
 
 class TestRegressionStanData(TestCase):

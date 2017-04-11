@@ -1,8 +1,8 @@
-from ..base import RegressionModelMixin
+from ..base import RegressionModel
 from ..base import RegressionStanData
 
 
-class LinearRegression(RegressionModelMixin):
+class LinearRegression(RegressionModel):
     model_code = '''
         data{
             int n;
@@ -37,7 +37,7 @@ class LinearRegression(RegressionModelMixin):
         return dat.append(sigma_upper=dat['y'].std())
 
 
-class LogisticRegression(RegressionModelMixin):
+class LogisticRegression(RegressionModel):
     model_code = '''
         data{
             int n;
@@ -65,7 +65,7 @@ class LogisticRegression(RegressionModelMixin):
     '''
 
 
-class PoissonRegression(RegressionModelMixin):
+class PoissonRegression(RegressionModel):
     model_code = '''
         data{
             int n;

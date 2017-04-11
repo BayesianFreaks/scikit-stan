@@ -41,7 +41,7 @@ class RegressionStanData(BaseStanData):
         }
 
 
-class RegressionModelMixin(BaseModel):
+class RegressionModel(BaseModel):
     def __init__(self, shrinkage: float, **kwargs):
         super().__init__(**kwargs)
         try:
