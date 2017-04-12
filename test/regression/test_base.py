@@ -19,7 +19,7 @@ class TestRegressionModel(TestCase):
         )
         self.assertEqual(dat1, RegressionModel.preprocess(dat1))
         self.assertRaises(
-            ValueError,
+            AssertionError,
             lambda: RegressionModel(shrinkage=-1)
         )
 
@@ -63,6 +63,6 @@ class TestRegressionStanData(TestCase):
         Test of shape assertion
         :return:
         """
-        self.assertRaises(ValueError, lambda: RegressionStanData(**self.x_dim_not_2))
-        self.assertRaises(ValueError, lambda: RegressionStanData(**self.y_dim_not_1))
-        self.assertRaises(ValueError, lambda: RegressionStanData(**self.row_number_mismatch))
+        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.x_dim_not_2))
+        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.y_dim_not_1))
+        self.assertRaises(AssertionError, lambda: RegressionStanData(**self.row_number_mismatch))
