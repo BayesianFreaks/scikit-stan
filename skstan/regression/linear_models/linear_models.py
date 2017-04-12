@@ -82,12 +82,12 @@ class PoissonRegression(RegressionModel):
         transformed parameters{
             vector[n] yp;
 
-            yp <- exp(x*alpha + beta);
+            yp <- x*alpha + beta;
         }
         model{
             alpha ~ normal(0, shrinkage);
             beta ~ normal(0, shrinkage);
 
-            y ~ poisson(yp);
+            y ~ poisson(exp(yp));
         }
     '''

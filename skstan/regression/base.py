@@ -46,6 +46,10 @@ class RegressionModel(BaseModel):
     def preprocess(dat: RegressionStanData) -> RegressionStanData:
         return dat
 
+    @staticmethod
+    def inv_link(x: np.array):
+        return x
+
 
 class RegressionModelResult(BaseModelResult):
     def __init__(self, model: RegressionModel, stanfit):
@@ -58,4 +62,8 @@ class RegressionModelResult(BaseModelResult):
 
     @abstractmethod
     def predict_dist(self, x: np.array) -> np.array:
-        pass
+        # lambda is used for lazy evaluation
+        a = lambda: self.stanfit.extract()['alpha']
+        b = lambda: self.stanfit.extract()['beta']
+
+        return self.model.inv_link(x.dot(a().T) + b())
