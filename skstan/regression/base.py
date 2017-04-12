@@ -1,7 +1,10 @@
+from abc import abstractmethod
+
 import numpy as np
 import pystan as ps
 
 from ..base import BaseModel
+from ..base import BaseModelResult
 from ..base import BaseStanData
 
 
@@ -12,13 +15,15 @@ class RegressionStanData(BaseStanData):
         assert len(x.shape) == 2, 'Mismatch dimension. x must be 2 dimensional array'
         assert y.shape[0] == x.shape[0], 'Mismatch dimension. x and y must have same number of rows'
 
-        self.data = {
-            'x': x,
-            'y': y,
-            'n': x.shape[0],
-            'f': x.shape[1],
-            'shrinkage': shrinkage,
-        }
+        self.update(
+            {
+                'x': x,
+                'y': y,
+                'n': x.shape[0],
+                'f': x.shape[1],
+                'shrinkage': shrinkage,
+            }
+        )
 
 
 class RegressionModel(BaseModel):
@@ -33,10 +38,24 @@ class RegressionModel(BaseModel):
             model_code=self.model_code,
             data=self.preprocess(
                 RegressionStanData(x, y, self.shrinkage)
-            ).data,
+            ),
             **self.kwargs
         )
 
     @staticmethod
     def preprocess(dat: RegressionStanData) -> RegressionStanData:
         return dat
+
+
+class RegressionModelResult(BaseModelResult):
+    def __init__(self, model: RegressionModel, stanfit):
+        self.model = model
+        self.stanfit = stanfit
+
+    @abstractmethod
+    def predict(self, x: np.array) -> np.array:
+        pass
+
+    @abstractmethod
+    def predict_dist(self, x: np.array) -> np.array:
+        pass

@@ -1,13 +1,12 @@
 from abc import ABCMeta, abstractstaticmethod
-from collections import UserDict
+from typing import Dict
 
 
-class BaseStanData(UserDict):
+class BaseStanData(Dict):
     def append(self, **kwargs):
-        self.data.update(kwargs)
-        return BaseStanData(
-            self.data
-        )
+        data = self.copy()
+        data.update(kwargs)
+        return data
 
 
 class BaseModel(metaclass=ABCMeta):
@@ -19,3 +18,7 @@ class BaseModel(metaclass=ABCMeta):
     @abstractstaticmethod
     def preprocess(dat: BaseStanData) -> BaseStanData:
         pass
+
+
+class BaseModelResult(metaclass=ABCMeta):
+    pass
