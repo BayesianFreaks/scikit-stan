@@ -88,7 +88,7 @@ pd.Series(yp_dist[0]).hist(bins=20)
 ![Histgram of first row](image/hist.png)
 
 
-If you want median of samples, you can get it with just `predict` method
+If you need a median of samples, you can get it with just `predict` method
 
 
 ```python
