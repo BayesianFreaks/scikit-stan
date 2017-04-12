@@ -61,6 +61,5 @@ pip3 uninstall scikit-stan
 # Using python2?
 Are you joking? 
 
-We can't see you because we are living in the future from you, and you're living in past ages. Please say hallo to Nobunaga Oda.
-
+We can't touch you because we are living in the future from you, and you're living in past ages. Please say hello to Nobunaga Oda.
 We will always use newest features of newest versions of python, and you should use newest version of python.
