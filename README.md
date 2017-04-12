@@ -58,7 +58,7 @@ convergence, Rhat=1).
 ```
 
 Result object of `skstan` also have prediction methods. 
-Result object can be obtained as samples from distribution with a `predict_dist` method, because it is bayesian model.
+Predicted values can be obtained as samples from distribution with a `predict_dist` method, because it is bayesian model.
 
 ```python
 yp_dist = fit.predict_dist(x)
