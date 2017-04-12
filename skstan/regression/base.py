@@ -1,5 +1,3 @@
-from abc import abstractmethod
-
 import numpy as np
 import pystan as ps
 
@@ -34,12 +32,15 @@ class RegressionModel(BaseModel):
         self.shrinkage = shrinkage
 
     def fit(self, x: np.array, y: np.array):
-        return ps.stan(
-            model_code=self.model_code,
-            data=self.preprocess(
-                RegressionStanData(x, y, self.shrinkage)
-            ),
-            **self.kwargs
+        return RegressionModelResult(
+            self,
+            ps.stan(
+                model_code=self.model_code,
+                data=self.preprocess(
+                    RegressionStanData(x, y, self.shrinkage)
+                ),
+                **self.kwargs
+            )
         )
 
     @staticmethod
@@ -47,7 +48,7 @@ class RegressionModel(BaseModel):
         return dat
 
     @staticmethod
-    def inv_link(x: np.array):
+    def inv_link(x: np.array) -> np.array:
         return x
 
 
@@ -56,11 +57,13 @@ class RegressionModelResult(BaseModelResult):
         self.model = model
         self.stanfit = stanfit
 
-    @abstractmethod
     def predict(self, x: np.array) -> np.array:
-        pass
+        return np.apply_along_axis(
+            np.median,
+            1,
+            self.predict_dist(x)
+        )
 
-    @abstractmethod
     def predict_dist(self, x: np.array) -> np.array:
         # lambda is used for lazy evaluation
         a = lambda: self.stanfit.extract()['alpha']
