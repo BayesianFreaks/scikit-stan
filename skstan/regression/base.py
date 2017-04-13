@@ -1,12 +1,15 @@
-import numpy as np
 import pystan as ps
 
 from ..base import BaseModel
 from ..base import BaseStanData
 
+from typing import Sequence, TypeVar
+
+T = TypeVar('T')
+
 
 class RegressionStanData(BaseStanData):
-    def __init__(self, x: np.array, y: np.array, shrinkage: float):
+    def __init__(self, x: Sequence[T], y: Sequence[T], shrinkage: float):
         super().__init__()
         assert len(y.shape) == 1, 'Mismatch dimension. y must be 1 dimensional array'
         assert len(x.shape) == 2, 'Mismatch dimension. x must be 2 dimensional array'
@@ -28,7 +31,7 @@ class RegressionModel(BaseModel):
 
         self.shrinkage = shrinkage
 
-    def fit(self, x: np.array, y: np.array):
+    def fit(self, x: Sequence[T], y: Sequence[T]):
         return ps.stan(
             model_code=self.model_code,
             data=self.preprocess(
