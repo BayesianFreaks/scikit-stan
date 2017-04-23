@@ -1,3 +1,8 @@
+scikit-stan
+=====
+
+[![Build Status](https://travis-ci.org/BayesianFreaks/scikit-stan.svg?branch=master)](https://travis-ci.org/BayesianFreaks/scikit-stan)
+
 # Demo
 
 ```python
