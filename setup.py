@@ -8,7 +8,7 @@ sys.path.append('./test')
 setup(
     name='skstan',
     version='0.0',
-    packages=find_packages(),
+    packages=find_packages(exclude=['test*']),
     test_suite='test',
     package_data={
         '': ['*.yaml']
