@@ -1,9 +1,12 @@
+[![Build Status](https://travis-ci.org/BayesianFreaks/scikit-stan.svg?branch=master)](https://travis-ci.org/BayesianFreaks/scikit-stan)
+
 # What is scikit-stan
 `scikit-stan` will enable you to use various bayesian models based on 
 `stan`(http://mc-stan.org) and `pystan` with a elegant interface like a 
 `scikit-learn` or `keras`.
 
-# Demo 
+# Demo
+
 
 ```python
 import numpy as np
@@ -59,6 +62,7 @@ convergence, Rhat=1).
 
 Result object of `skstan` also have prediction methods. 
 Predicted values can be obtained as samples from distribution with a `predict_dist` method, because it is bayesian model.
+<<<<<<< HEAD
 
 ```python
 yp_dist = fit.predict_dist(x)
@@ -102,6 +106,51 @@ array([  1.17280235e-05,   9.01419773e-22,   7.16023732e-13,
 ```
 
 
+=======
+
+```python
+yp_dist = fit.predict_dist(x)
+print(yp_dist)
+```
+Then we got
+
+```
+array([[  2.63886682e-08,   5.23976746e-04,   5.54863097e-05, ...,
+          2.46008578e-08,   3.74830192e-01,   3.45994043e-03],
+       [  1.07746578e-22,   1.01664809e-18,   4.12813154e-26, ...,
+          5.64992544e-19,   7.24386097e-12,   1.75795155e-23],
+       [  8.04688037e-22,   4.44522113e-12,   1.42920488e-11, ...,
+          7.71565191e-13,   5.13118658e-05,   4.26331280e-05],
+       [  4.60810657e-15,   4.82743551e-08,   2.81612678e-08, ...,
+          1.37772153e-10,   5.51614998e-03,   3.84594197e-04],
+       [  9.99999998e-01,   1.00000000e+00,   1.00000000e+00, ...,
+          9.99965378e-01,   1.00000000e+00,   1.00000000e+00]])
+```
+
+So let's check the histgram of first row with `pandas.Series`.
+
+```python
+import pandas as pd
+pd.Series(yp_dist[0]).hist(bins=20)
+```
+![Histgram of first row](image/hist.png)
+
+
+If you need a median of samples, you can get it with just `predict` method
+
+
+```python
+yp = fit.predict(x)
+print(yp)
+```
+gives
+```
+array([  1.17280235e-05,   9.01419773e-22,   7.16023732e-13,
+         3.18368664e-09,   1.00000000e+00])
+```
+
+
+>>>>>>> 7368686c2ec0fb635e4cd45334d8baa777b3ba50
 # How to install
 ## Install
 ```sh
