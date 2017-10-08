@@ -8,18 +8,21 @@ sys.path.append('./test')
 
 def readme():
     try:
-        with open('README.md') as f:
+        with open('README.rst') as f:
             readme = f.read()
             return readme
     except IOError:
         return ''
 
 
+description = "Various bayesian models based on stan and pystan with a elegant interface like a scikit-learn or keras."
+
 setup(
     name='skstan',
-    version='0.0',
+    version='0.0.0',
+    url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
-    description='',
+    description=description,
     long_description=readme(),
     author='scikit-stan development team',
     author_email='scikit-stan@googlegroups.com',
@@ -32,7 +35,7 @@ setup(
         'scipy',
         'pandas',
         'pystan',
-        'pyyaml'
+        'pyyaml',
     ],
     classifiers=[
         'Programming Language :: Python',
