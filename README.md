@@ -1,13 +1,14 @@
 
-# What is scikit-stan
+# scikit-stan
 
 [![Build Status](https://travis-ci.org/BayesianFreaks/scikit-stan.svg?branch=master)](https://travis-ci.org/BayesianFreaks/scikit-stan) [![codecov](https://codecov.io/gh/BayesianFreaks/scikit-stan/branch/master/graph/badge.svg)](https://codecov.io/gh/BayesianFreaks/scikit-stan)
 
+## What is scikit-stan
 `scikit-stan` will enable you to use various bayesian models based on 
 `stan`(http://mc-stan.org) and `pystan` with a elegant interface like a 
 `scikit-learn` or `keras`.
 
-# Demo
+## Demo
 
 ```python
 import numpy as np
@@ -106,15 +107,15 @@ array([  1.17280235e-05,   9.01419773e-22,   7.16023732e-13,
 ```
 
 
-# How to install
-## Install
+## How to install
+### Install
 ```sh
 git clone https://github.com/BayesianFreaks/scikit-stan
 cd scikit-stan
 python3 setup.py install
 ```
 
-## Uninstall
+### Uninstall
 ```sh
 pip3 uninstall scikit-stan
 ```
@@ -124,5 +125,42 @@ Are you joking?
 
 We can't touch you because we are living in the future from you, and you're living in past ages. Please say hello to Nobunaga Oda.
 
-
 We will always use newest features of the latest version of python, so you should use the latest version of python.
+
+
+# Models
+
+## Ready
+### Regression Models
+- Linear Regrassion
+- Poisson Regression
+- Logistic Regression
+
+## Next Step
+### Regression Models
+- Gamma Regression
+- GLMM
+- etc...
+
+### Time Series Models
+- AR Model
+- MA Model
+- ARMA Model
+- ARIMA Model
+- ARCH Model
+- GARCH Model
+- TAR Model
+- State Space Model
+- or Some Dynamic Regression Models
+- etc...
+
+### Clustering Model
+- Gaussian Mixture Model
+- Latent Dirichlet Allocation
+- etc...
+
+### Particular Application
+- Modeling about online-advertisement
+- Decompose time series data
+- Empirical Bayesian Estimation
+
