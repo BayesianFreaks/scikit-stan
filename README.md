@@ -125,5 +125,42 @@ Are you joking?
 
 We can't touch you because we are living in the future from you, and you're living in past ages. Please say hello to Nobunaga Oda.
 
-
 We will always use newest features of the latest version of python, so you should use the latest version of python.
+
+
+# Models
+
+## Ready
+### Regression Models
+- Linear Regrassion
+- Poisson Regression
+- Logistic Regression
+
+## Next Step
+### Regression Models
+- Gamma Regression
+- GLMM
+- etc...
+
+### Time Series Models
+- AR Model
+- MA Model
+- ARMA Model
+- ARIMA Model
+- ARCH Model
+- GARCH Model
+- TAR Model
+- State Space Model
+- or Some Dynamic Regression Models
+- etc...
+
+### Clustering Model
+- Gaussian Mixture Model
+- Latent Dirichlet Allocation
+- etc...
+
+### Particular Application
+- Modeling about online-advertisement
+- Decompose time series data
+- Empirical Bayesian Estimation
+
