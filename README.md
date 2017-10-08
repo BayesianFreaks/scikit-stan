@@ -136,7 +136,7 @@ We will always use newest features of the latest version of python, so you shoul
 - Poisson Regression
 - Logistic Regression
 
-## Next Step
+## Next Steps
 ### Regression Models
 - Gamma Regression
 - GLMM
