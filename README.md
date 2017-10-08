@@ -1,13 +1,14 @@
 
-# What is scikit-stan
+# scikit-stan
 
 [![Build Status](https://travis-ci.org/BayesianFreaks/scikit-stan.svg?branch=master)](https://travis-ci.org/BayesianFreaks/scikit-stan) [![codecov](https://codecov.io/gh/BayesianFreaks/scikit-stan/branch/master/graph/badge.svg)](https://codecov.io/gh/BayesianFreaks/scikit-stan)
 
+## What is scikit-stan
 `scikit-stan` will enable you to use various bayesian models based on 
 `stan`(http://mc-stan.org) and `pystan` with a elegant interface like a 
 `scikit-learn` or `keras`.
 
-# Demo
+## Demo
 
 ```python
 import numpy as np
@@ -106,15 +107,15 @@ array([  1.17280235e-05,   9.01419773e-22,   7.16023732e-13,
 ```
 
 
-# How to install
-## Install
+## How to install
+### Install
 ```sh
 git clone https://github.com/BayesianFreaks/scikit-stan
 cd scikit-stan
 python3 setup.py install
 ```
 
-## Uninstall
+### Uninstall
 ```sh
 pip3 uninstall scikit-stan
 ```
