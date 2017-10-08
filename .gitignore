@@ -141,3 +141,5 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# OS generated file
+.DS_Store
