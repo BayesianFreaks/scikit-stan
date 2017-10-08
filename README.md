@@ -120,5 +120,31 @@ Are you joking?
 
 We can't touch you because we are living in the future from you, and you're living in past ages. Please say hello to Nobunaga Oda.
 
-
 We will always use newest features of the latest version of python, so you should use the latest version of python.
+
+# Models
+
+## Ready
+
+### Regression Models
+- Linear Regrassion
+- Poisson Regression
+- Logistic Regression
+
+## Next Step
+
+### Regression Models
+- Gamma Regression
+- GLMM
+- etc...
+
+### Time Series Models
+- AR
+- MA
+- ARMA
+- ARIMA
+- ARCH
+- GARCH
+- State Space Model
+- or some Dynamic Regression Models
+- etc...
