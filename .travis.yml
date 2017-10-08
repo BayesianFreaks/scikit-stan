@@ -1,21 +1,20 @@
 sudo: false
-
 language: python
-
 python:
-  - 3.6
-
+- 3.6
 cache: pip
-
 install:
-  # command to install dependencies.
-  - pip install -r requirements.txt
-  - pip install codecov
-
+- pip install -r requirements.txt
+- pip install codecov
 script:
-  # command to run tests.
-  - coverage run setup.py test
-
+- coverage run setup.py test
 after_success:
-  # submit coverage to codecov.
-  - codecov
+- codecov
+deploy:
+  provider: pypi
+  user: stenoritama
+  password:
+    secure: li9tTXo/tv8xdIQt3wbXmCyjFSFci3Bnd5Ym+yNXkKEoRaRkobbC9Fe4T/0oX1hnRGlaIYY2eFA85LNDfWzrfXeBbHHAGTuMuZq7ctRYlVk1gPN9ZRAOW5lMuJWB2mZszOl0OsE/Vv9+vS8MR3JG6Nv9L1ppsOQgMUzJPDky9D1JAKvYyd0Z5WOvqjOco+hDL2bl8hlu38AkRS4SI71DRocHV1I8vC/xEWFCli9P3ro25FyBuXIIHPTFThAGJzjRzvgnHZLgchqSvpNOtsjUogkhxy9eh+Xky+gLB8gM4WotNAFHAm90lAvnaOmllKUzMhhX+fop6CgovwFgy2L6EBT/mpQ0MHDhZQZCSOXanRP1a7h6/agbaIwJSCPk79JH6ncj552UFPPgq1tuckar+XswKqjWTsmAd5i77/tXqf2JUPwTSZPNMUGgt06+2h91fvCfXyiN0Nnv6WlL14g3Kom5fuRsbcStGNw7yzy9hyPplyS3imheQV0fbbNlMWqVMHrbcVVvpdUCKr0ahPpBFZgcvOkc6jJ4Ps7VUJOhkGR7FPhFCRLLUDwSEDkJC8qv89URAEXUOhtmqpADsIM5XvZ7jzV15aeHQxvJHUzLtz8RkfD6wKsV2xDEaKCCvBqQR/bhj1zJ5MMZKekn7r/YspHBCvRIaj38sSANe9ZENQY=
+  on:
+    tags: true
+    branch: master
