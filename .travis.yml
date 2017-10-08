@@ -1,15 +1,22 @@
 sudo: false
+
 language: python
+
 python:
-- 3.6
+  - 3.6
+
 cache: pip
+
 install:
-- pip install -r requirements.txt
-- pip install codecov
+  - pip install -r requirements.txt
+  - pip install codecov
+
 script:
-- coverage run setup.py test
+  - coverage run setup.py test
+
 after_success:
-- codecov
+  - codecov
+
 deploy:
   provider: pypi
   user: stenoritama
