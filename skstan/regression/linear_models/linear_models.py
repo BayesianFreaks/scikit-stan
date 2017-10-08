@@ -1,5 +1,8 @@
+import numpy as np
+
 from ..base import RegressionModel
 from ..base import RegressionStanData
+from ...utils import functions as f
 
 
 class LinearRegression(RegressionModel):
@@ -64,6 +67,10 @@ class LogisticRegression(RegressionModel):
         }
     '''
 
+    @staticmethod
+    def inv_link(x: np.array) -> np.array:
+        return f.sigmoid_each(x)
+
 
 class PoissonRegression(RegressionModel):
     model_code = '''
@@ -82,12 +89,16 @@ class PoissonRegression(RegressionModel):
         transformed parameters{
             vector[n] yp;
 
-            yp <- exp(x*alpha + beta);
+            yp <- x*alpha + beta;
         }
         model{
             alpha ~ normal(0, shrinkage);
             beta ~ normal(0, shrinkage);
 
-            y ~ poisson(yp);
+            y ~ poisson(exp(yp));
         }
     '''
+
+    @staticmethod
+    def inv_link(x: np.array) -> np.array:
+        return np.exp(x)
