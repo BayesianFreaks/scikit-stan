@@ -1,9 +1,11 @@
+
 # What is scikit-stan
 `scikit-stan` will enable you to use various bayesian models based on 
 `stan`(http://mc-stan.org) and `pystan` with a elegant interface like a 
 `scikit-learn` or `keras`.
+[![Build Status](https://travis-ci.org/BayesianFreaks/scikit-stan.svg?branch=master)](https://travis-ci.org/BayesianFreaks/scikit-stan)
 
-# Demo 
+# Demo
 
 ```python
 import numpy as np
