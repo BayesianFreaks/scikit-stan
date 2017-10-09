@@ -12,7 +12,7 @@ def rst_readme():
         readme_text = f.read()
     try:
         from pypandoc import convert_text
-        return convert_text(readme_text, 'rst', format='md')
+        return convert_text(readme_text, 'rst', format='md') + '\n'
     except ImportError:
         print("warning: pypandoc module not found, could not convert Markdown to RST")
         return readme_text
@@ -25,7 +25,7 @@ def description():
 
 setup(
     name='skstan',
-    version='0.0.0_2',
+    version='0.0.0_3',
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
     description=description(),
