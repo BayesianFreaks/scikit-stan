@@ -1,35 +1,35 @@
 import sys
 
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
 sys.path.append('./skstan')
 sys.path.append('./test')
 
 
-def rst_readme(file):
+def rst_readme():
+    with open('README.md') as f:
+        readme_text = f.read()
     try:
-        from pypandoc import convert
-        return convert(file, 'rst')
+        from pypandoc import convert_text
+        return convert_text(readme_text, 'rst', format='md')
     except ImportError:
         print("warning: pypandoc module not found, could not convert Markdown to RST")
-        with open(file, 'r') as f:
-            return f.read()
+        return readme_text
 
 
-def readme():
-    with open('README.rst') as f:
-        return f.read()
+def description():
+    desc = "Various bayesian models based on stan and pystan with a elegant interface like a scikit-learn or keras."
+    return desc
 
-
-description = "Various bayesian models based on stan and pystan with a elegant interface like a scikit-learn or keras."
 
 setup(
     name='skstan',
-    version='0.0.0_1',
+    version='0.0.0_2',
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
-    description=description,
-    long_description=readme(),
+    description=description(),
+    long_description=rst_readme(),
     author='scikit-stan development team',
     author_email='scikit-stan@googlegroups.com',
     test_suite='test',
