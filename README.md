@@ -1,4 +1,3 @@
-
 # scikit-stan
 
 [![Build Status](https://travis-ci.org/BayesianFreaks/scikit-stan.svg?branch=master)](https://travis-ci.org/BayesianFreaks/scikit-stan) [![codecov](https://codecov.io/gh/BayesianFreaks/scikit-stan/branch/master/graph/badge.svg)](https://codecov.io/gh/BayesianFreaks/scikit-stan)
@@ -163,4 +162,3 @@ We will always use newest features of the latest version of python, so you shoul
 - Modeling about online-advertisement
 - Decompose time series data
 - Empirical Bayesian Estimation
-

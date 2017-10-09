@@ -1,6 +1,8 @@
 import sys
 
-from setuptools import setup, find_packages
+import pypandoc
+from setuptools import find_packages
+from setuptools import setup
 
 sys.path.append('./skstan')
 sys.path.append('./test')
@@ -19,11 +21,11 @@ description = "Various bayesian models based on stan and pystan with a elegant i
 
 setup(
     name='skstan',
-    version='0.0.dev1',
+    version='0.0.0_9',
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
     description=description,
-    long_description=readme(),
+    long_description=pypandoc.convert('README.md', 'rst'),
     author='scikit-stan development team',
     author_email='scikit-stan@googlegroups.com',
     test_suite='test',
