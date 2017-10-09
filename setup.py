@@ -11,21 +11,11 @@ def rst_readme():
     try:
         from pypandoc import convert_file
         readme_text = convert_file('README.md', 'rst')
-        write_readme(readme_text)
-        return read_readme()
+        return readme_text.decode('utf-8')
     except ImportError:
         print("warning: pypandoc module not found, could not convert Markdown to RST")
-        return ''
-
-
-def write_readme(text):
-    with open('README.rst', 'w') as f:
-        f.write(text)
-
-
-def read_readme():
-    with open('README.rst', 'r') as f:
-        return f.read()
+        with open('README.md', 'r') as f:
+            return f.read()
 
 
 def description():
