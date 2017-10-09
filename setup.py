@@ -2,6 +2,7 @@ import sys
 
 from setuptools import find_packages
 from setuptools import setup
+from skstan import __version__
 
 sys.path.append('./skstan')
 sys.path.append('./test')
@@ -22,7 +23,7 @@ description = "Various bayesian models based on stan and pystan with a elegant i
 
 setup(
     name='skstan',
-    version='0.0.0_9',
+    version=__version__,
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
     description=description,
