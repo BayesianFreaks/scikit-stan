@@ -20,7 +20,7 @@ description = "Various bayesian models based on stan and pystan with a elegant i
 
 setup(
     name='skstan',
-    version='0.0.0-test',
+    version='0.0.0_0',
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
     description=description,
