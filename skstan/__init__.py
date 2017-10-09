@@ -1,3 +1,3 @@
-from . import utils
+from skstan.release import __version__
 
-__version__ = '0.0.0-dev2'
+from . import utils
