@@ -19,7 +19,7 @@ description = "Various bayesian models based on stan and pystan with a elegant i
 
 setup(
     name='skstan',
-    version='0.0.0',
+    version='0.0.0-dev',
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
     description=description,
@@ -38,9 +38,11 @@ setup(
         'pyyaml',
     ],
     classifiers=[
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Topic :: Scientific/Engineering :: Mathematics',
     ],
     license="MIT"
 )
