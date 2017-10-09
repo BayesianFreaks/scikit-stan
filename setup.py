@@ -7,14 +7,15 @@ sys.path.append('./skstan')
 sys.path.append('./test')
 
 
-def create_rst():
+def rst_readme():
     try:
         from pypandoc import convert_file
         readme_text = convert_file('README.md', 'rst')
         write_readme(readme_text)
+        return read_readme()
     except ImportError:
         print("warning: pypandoc module not found, could not convert Markdown to RST")
-        write_readme('')
+        return ''
 
 
 def write_readme(text):
@@ -32,15 +33,13 @@ def description():
     return desc
 
 
-create_rst()
-
 setup(
     name='skstan',
     version='0.0.0_6',
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
     description=description(),
-    long_description=read_readme(),
+    long_description=rst_readme(),
     author='scikit-stan development team',
     author_email='scikit-stan@googlegroups.com',
     test_suite='test',
