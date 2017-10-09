@@ -16,15 +16,20 @@ def rst_readme(file):
             return f.read()
 
 
+def readme():
+    with open('README.rst') as f:
+        return f.read()
+
+
 description = "Various bayesian models based on stan and pystan with a elegant interface like a scikit-learn or keras."
 
 setup(
     name='skstan',
-    version='0.0.0_0',
+    version='0.0.0_1',
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['test*']),
     description=description,
-    long_description=rst_readme('README.md'),
+    long_description=readme(),
     author='scikit-stan development team',
     author_email='scikit-stan@googlegroups.com',
     test_suite='test',
