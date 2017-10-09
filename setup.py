@@ -9,7 +9,9 @@ sys.path.append('./test')
 def rst_readme(file):
     try:
         from pypandoc import convert
-        return convert(file, 'rst')
+        converted = convert(file, 'rst')
+        print(converted)
+        return converted
     except ImportError:
         print("warning: pypandoc module not found, could not convert Markdown to RST")
         with open(file, 'r') as f:
