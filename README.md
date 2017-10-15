@@ -119,6 +119,10 @@ python3 setup.py install
 pip3 uninstall scikit-stan
 ```
 
+## Contributing
+We welcome contributions from anyone. Please read our [Introduction to contributing](https://github.com/BayesianFreaks/scikit-stan/wiki/Introduction-to-contributing).
+
+
 # Using python2?
 Are you joking? 
 
