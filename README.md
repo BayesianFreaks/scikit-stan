@@ -115,6 +115,14 @@ Installers for the latest released version are available at [PyPI](https://pypi.
 pip3 install skstan
 ```
 
+### Install from sources
+
+```sh
+git clone https://github.com/BayesianFreaks/scikit-stan
+cd scikit-stan
+python3 setup.py install
+```
+
 ### Uninstall
 ```sh
 pip3 uninstall scikit-stan
