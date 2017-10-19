@@ -108,10 +108,11 @@ array([  1.17280235e-05,   9.01419773e-22,   7.16023732e-13,
 
 ## How to install
 ### Install
+
+Installers for the latest released version are available at [PyPI](https://pypi.python.org/pypi/skstan).
+
 ```sh
-git clone https://github.com/BayesianFreaks/scikit-stan
-cd scikit-stan
-python3 setup.py install
+pip3 install skstan
 ```
 
 ### Uninstall
