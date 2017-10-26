@@ -1,10 +1,10 @@
-from skstan.stan.omm.ele import Element
+from skstan.stan.omm.ele import StanElement
 
 
 class VariableDefinition:
 
     def __init__(self, variable_name: str):
-        self.variable_name_el = Element(variable_name)
+        self.variable_name_el = StanElement(variable_name)
 
     def _render(self):
         return self.variable_name_el.end().value
@@ -15,7 +15,7 @@ class VariableDefinition:
 
 class Int(VariableDefinition):
 
-    REP = Element('int')
+    REP = StanElement('int')
 
     def __init__(self, variable_name: str):
         super().__init__(variable_name)
@@ -26,7 +26,7 @@ class Int(VariableDefinition):
 
 class Real(VariableDefinition):
 
-    REP = Element('real')
+    REP = StanElement('real')
 
     def __init__(self, variable_name: str, lower=None):
         self.lower = lower
@@ -40,7 +40,7 @@ class Real(VariableDefinition):
 
 class Vector(VariableDefinition):
 
-    REP = Element('vector[{}]')
+    REP = StanElement('vector[{}]')
 
     def __init__(self, variable_name: str, dim: int):
         self.dim = dim
@@ -53,7 +53,7 @@ class Vector(VariableDefinition):
 
 class Matrix(VariableDefinition):
 
-    REP = Element('matrix[{}, {}]')
+    REP = StanElement('matrix[{}, {}]')
 
     def __init__(self, variable_name: str, dim1: int, dim2: int):
         self.dim1 = dim1

@@ -1,15 +1,13 @@
-class Element:
+class StanElement:
 
     def __init__(self, value):
         self.value = value
 
     def __add__(self, other):
-        self.value + ' ' + other.value
+        return StanElement(self.value + ' ' + other.value)
 
     def var_end(self):
-        self.value = self.value + ';'
-        return self
+        return StanElement(self.value + ';')
 
     def format(self, *args):
-        self.value = self.value.format(args)
-        return self
+        return StanElement(self.value.format(*args))
