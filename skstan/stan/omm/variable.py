@@ -7,7 +7,7 @@ class VariableDefinition:
         self.variable_name_el = StanElement(variable_name)
 
     def _render(self):
-        return self.variable_name_el.end().value
+        return self.variable_name_el.value
 
     def _render_variable(self):
         return self.variable_name_el.var_end().value
