@@ -1,32 +1,66 @@
-from typing import List
 from skstan.stan.omm.variable import VariableDefinition
 
 
-class CompileMixin:
+class CompilerMixin:
 
     def compile():
         pass
 
 
-class Data:
+class StanCode:
 
-    def __init__(self, variables: List[VariableDefinition]):
+    def __init__(self, *variables):
+        self.variables = variables
+
+    def _parenthesis(self, code):
+        return self.REP + '{\n' + code + '}'
+
+    def _default_render(self):
+        def_list = [v.render() for v in self.variables]
+        return self._parenthesis('\n'.join(def_list))
+
+
+class Data(StanCode, CompilerMixin):
+
+    REP = 'data'
+
+    def __init__(self, *variables: VariableDefinition):
+        super().__init__(variables)
+
+    def render(self):
+        return self._default_render()
+
+
+class Parameters(StanCode, CompilerMixin):
+
+    REP = 'parameters'
+
+    def __init__(self, *variables: VariableDefinition):
+        super().__init__(variables)
+
+    def render(self):
+        return self._default_render()
+
+
+class TransformedParameters(StanCode, CompilerMixin):
+
+    REP = 'transformed parameters'
+
+    def __init__(self, *variables: VariableDefinition):
+        super().__init__(variables)
+
+    def reander(self):
+        # TODO: implement
         pass
 
 
-class Parameters:
+class Model(StanCode, CompilerMixin):
 
-    def __init__(self, variables: List[VariableDefinition]):
-        pass
+    REP = 'model'
 
+    def __init__(self, *variables: VariableDefinition):
+        super().__init__(variables)
 
-class TransformedParameters:
-
-    def __init__(self, variables: List[VariableDefinition]):
-        pass
-
-
-class Model:
-
-    def __init__(self, variables: List[VariableDefinition]):
+    def reander(self):
+        # TODO: implement
         pass
