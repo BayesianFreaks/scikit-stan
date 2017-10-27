@@ -1,13 +1,20 @@
+from typing import List
+
+
 class StanElement:
 
-    def __init__(self, value):
+    def __init__(self, value: str):
         self.value = value
 
-    def __add__(self, other):
-        return StanElement(self.value + ' ' + other.value)
-
-    def var_end(self):
+    def semicolon(self):
         return StanElement(self.value + ';')
 
-    def format(self, *args):
-        return StanElement(self.value.format(*args))
+    def concat_with_blank(self, other):
+        return StanElement(self.value + ' ' + other.value)
+
+    @classmethod
+    def join(cls, el_list: List):
+        return ''.join([el.value for el in el_list])
+
+    def __add__(self, other):
+        return StanElement(self.value + other.value)
