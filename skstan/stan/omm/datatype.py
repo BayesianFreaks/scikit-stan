@@ -54,7 +54,7 @@ class Vector(StanDataType, StanDataDeclareMixin):
         super().__init__(variable_name)
 
     def declare(self):
-        return self._declare(self.variable_name_el, self.dim.variable_name_el.value)
+        return self.dim.declare() + self._declare(self.variable_name_el, self.dim.variable_name_el.value)
 
 
 class Matrix(StanDataType, StanDataDeclareMixin):
