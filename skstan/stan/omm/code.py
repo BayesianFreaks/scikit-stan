@@ -1,6 +1,7 @@
 from skstan.stan.omm.datatype import StanDataType
 from skstan.stan.omm.ele import StanElement
 
+
 class CompilerMixin:
 
     def compile(self):
@@ -17,7 +18,7 @@ class StanCode:
 
     def _default_render(self):
         def_list = [v.declare() for v in self.variables]
-        return self._parenthesis(StanElement.join(def_list))
+        return self._parenthesis(StanElement.join(def_list).value)
 
 
 class Data(StanCode, CompilerMixin):

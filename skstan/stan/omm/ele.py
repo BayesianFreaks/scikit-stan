@@ -14,7 +14,7 @@ class StanElement:
 
     @classmethod
     def join(cls, el_list: List):
-        return ''.join([el.value for el in el_list])
+        return StanElement(''.join([el.value for el in el_list]))
 
     def __add__(self, other):
         return StanElement(self.value + other.value)
