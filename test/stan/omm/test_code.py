@@ -1,8 +1,10 @@
 from unittest import TestCase
 
+from skstan.stan.omm import Data
 from skstan.stan.omm import Int
 from skstan.stan.omm import Matrix
 from skstan.stan.omm import StanCode
+from skstan.stan.omm import Parameters
 
 
 class TestStanCode(TestCase):
@@ -38,4 +40,26 @@ class TestStanCode(TestCase):
         rendered = test_code._default_render()
 
         expected = 'data{int m;int n;matrix[m, n] x;}'
+        self.assertEqual(rendered, expected)
+
+
+class TestData(TestCase):
+
+    def test_render(self):
+        int_type = Int('a')
+        data = Data(int_type)
+        rendered = data.render()
+
+        expected = 'data{int a;}'
+        self.assertEqual(rendered, expected)
+
+
+class TestParameters(TestCase):
+
+    def test_render(self):
+        int_type = Int('a')
+        params = Parameters(int_type)
+        rendered = params.render()
+
+        expected = 'parameters{int a;}'
         self.assertEqual(rendered, expected)

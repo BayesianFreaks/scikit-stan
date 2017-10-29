@@ -1,4 +1,4 @@
-from .code import StanCode
+from .code import StanCode, Data, Parameters
 from .datatype import Int, Real, Vector, Matrix
 from .datatype import StanDataDeclareMixin
 from .datatype import StanDataType

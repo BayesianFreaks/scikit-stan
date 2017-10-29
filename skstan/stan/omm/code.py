@@ -43,6 +43,8 @@ class Parameters(StanCode, CompilerMixin):
         return self._default_render()
 
 
+# TODO: implement transformed parameters and model.
+""""
 class TransformedParameters(StanCode, CompilerMixin):
 
     REP = 'transformed parameters'
@@ -65,3 +67,4 @@ class Model(StanCode, CompilerMixin):
     def render(self):
         # TODO: implement
         pass
+"""
