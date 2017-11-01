@@ -8,20 +8,18 @@ from ..base import BaseStanData
 
 class RegressionStanData(BaseStanData):
     def __init__(self, x: np.array, y: np.array, shrinkage: float):
-        super().__init__()
         assert len(y.shape) == 1, 'Mismatch dimension. y must be 1 dimensional array'
         assert len(x.shape) == 2, 'Mismatch dimension. x must be 2 dimensional array'
         assert y.shape[0] == x.shape[0], 'Mismatch dimension. x and y must have same number of rows'
 
-        self.update(
-            {
-                'x': x,
-                'y': y,
-                'n': x.shape[0],
-                'f': x.shape[1],
-                'shrinkage': shrinkage,
-            }
-        )
+        init_data = {
+            'x': x,
+            'y': y,
+            'n': x.shape[0],
+            'f': x.shape[1],
+            'shrinkage': shrinkage,
+        }        
+        super().__init__(**init_data)
 
 
 class RegressionModel(BaseModel):
