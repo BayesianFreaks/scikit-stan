@@ -1,6 +1,8 @@
 from abc import ABCMeta, abstractstaticmethod
 from typing import Dict
 
+import numpy as np
+
 
 class BaseStanData(Dict):
     def append(self, **kwargs):
@@ -21,4 +23,11 @@ class BaseModel(metaclass=ABCMeta):
 
 
 class BaseModelResult(metaclass=ABCMeta):
-    pass
+
+    @abstractstaticmethod
+    def predict(self, x: np.array) -> np.array:
+        pass
+
+    @abstractstaticmethod
+    def predict_dist(self, x: np.array) -> np.array:
+        pass
