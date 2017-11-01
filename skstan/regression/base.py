@@ -1,6 +1,7 @@
 import numpy as np
 import pystan as ps
 
+from skstan.pystan import PyStanMixin
 from ..base import BaseModel
 from ..base import BaseModelResult
 from ..base import BaseStanData
@@ -52,21 +53,27 @@ class RegressionModel(BaseModel):
         return x
 
 
-class RegressionModelResult(BaseModelResult):
-    def __init__(self, model: RegressionModel, stanfit):
-        self.model = model
-        self.stanfit = stanfit
+class RegressionModelResult(BaseModelResult, PyStanMixin):
+
+    def __init__(self, model_code: str, data, **kwargs):
+        self.pystan = self._inference(model_code, data, **kwargs)
+
+    @classmethod
+    def model_result(cls, model_code, data, **kwargs):
+        return RegressionModelResult(model_code, data, **kwargs)
+
+    def stanfit(self):
+        return self._stanfit()
 
     def predict(self, x: np.array) -> np.array:
         return np.apply_along_axis(
             np.median,
             1,
-            self.predict_dist(x)
+            self._predict_dist(x)
         )
 
-    def predict_dist(self, x: np.array) -> np.array:
+    def _predict_dist(self, x: np.array) -> np.array:
         # lambda is used for lazy evaluation
-        a = lambda: self.stanfit.extract()['alpha']
-        b = lambda: self.stanfit.extract()['beta']
-
+        a = self.pystan.extract_func('alpha')
+        b = self.pystan.extract_func('beta')
         return self.model.inv_link(x.dot(a().T) + b())
