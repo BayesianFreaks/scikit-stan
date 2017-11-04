@@ -11,15 +11,16 @@ class LinearRegression(LinearRegressionBase,
 
     def __init__(self, shrinkage: float, **kwargs):
         self._kwargs = kwargs
+        self.stanfit = None
         super().__init__(shrinkage)
 
-    def fit(self, x: np.array, y: np.array):
+    def fit(self, x: np.array, y: np.array) -> LinearRegressionBase:
         data = self.stan_data(x, y, shrinkage=self.shrinkage, has_std=True)
-        stan_fit = StanFit(
-            self,
-            self.inference(data=data, **self._kwargs)
-        )
-        return stan_fit
+        self.stanfit = StanFit(self.inference(data=data, **self._kwargs))
+        return self
+
+    def predict_dist(self, x: np.array) -> np.array:
+        return self.distribution(x, self.stanfit)
 
     def inv_link(self, x: np.array) -> np.array:
         return x
@@ -57,8 +58,15 @@ class LinearRegression(LinearRegressionBase,
 class LogisticRegression(LinearRegressionBase,
                          LinearRegressionMixin):
 
-    def fit(self, x: np.array, y: np.array):
+    def __init__(self, shrinkage: float):
+        self.stanfit = None
+        super().__init__(shrinkage)
+
+    def fit(self, x: np.array, y: np.array) -> LinearRegressionBase:
         return self._default_fit(x, y, shrinkage=self.shrinkage)
+
+    def predict_dist(self, x: np.array) -> np.array:
+        return self.distribution(x, self.stanfit)
 
     def inv_link(self, x: np.array) -> np.array:
         return sigmoid_each(x)
@@ -93,8 +101,15 @@ class LogisticRegression(LinearRegressionBase,
 class PoissonRegression(LinearRegressionBase,
                         LinearRegressionMixin):
 
-    def fit(self, x: np.array, y: np.array):
+    def __init__(self, shrinkage: float):
+        self.stanfit = None
+        super().__init__(shrinkage)
+
+    def fit(self, x: np.array, y: np.array) -> LinearRegressionBase:
         return self._default_fit(x, y, shrinkage=self.shrinkage)
+
+    def predict_dist(self, x: np.array) -> np.array:
+        return self.distribution(x)
 
     def inv_link(self, x: np.array) -> np.array:
         return np.exp(x)

@@ -9,8 +9,13 @@ def liner_regression():
 
     glm = LinearRegression(shrinkage=10, chains=8)
 
-    stanfit = glm.fit(x, y)
-    print(stanfit)
+    model = glm.fit(x, y)
+    print('inference')
+    print(model.stanfit)
+
+    yp_dist = model.predict_dist(x)
+    print('distribution')
+    print(yp_dist)
 
 
 if __name__ == '__main__':
