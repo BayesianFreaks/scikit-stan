@@ -28,18 +28,18 @@ class LinearRegressionBase(metaclass=ABCMeta):
         pass
 
     @abstractclassmethod
-    def predict_dist(self, x: np.array):
+    def predict_dist(self, x: np.array) -> np.array:
         pass
 
     @abstractclassmethod
-    def inv_link(self, x: np.array):
+    def inv_link(self, x: np.array) -> np.array:
         pass
 
 
 class LinearRegressionMixin(LinearRegressionPystanMixin,
                             LinearRegressionStanParamMixin):
 
-    def _default_fit(self, x: np.array, y: np.array, shrinkage: float):
+    def _default_fit(self, x: np.array, y: np.array, shrinkage: float) -> StanFit:
         data = self.stan_data(x, y, shrinkage=shrinkage)
-        return StanFit(self.inference(data=data))
+        return self.inference(data=data)
 

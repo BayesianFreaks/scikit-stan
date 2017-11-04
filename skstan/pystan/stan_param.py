@@ -7,7 +7,7 @@ class StanParamMixin:
 
 class LinearRegressionStanParamMixin(StanParamMixin):
 
-    def stan_data(self, x: np.array, y: np.array, shrinkage: float, has_std=False):
+    def stan_data(self, x: np.array, y: np.array, shrinkage: float, additional_params: dict = None) -> dict:
         self.__validate_params(x, y)
         data = {
             'x': x,
@@ -16,10 +16,10 @@ class LinearRegressionStanParamMixin(StanParamMixin):
             'f': x.shape[1],
             'shrinkage': shrinkage,
         }
-        if not has_std:
+        if additional_params is None:
             return data
         else:
-            data.update({'sigma_upper': y.std()})
+            data.update(additional_params)
             return data
 
     @staticmethod

@@ -1,6 +1,5 @@
 import numpy as np
 
-from skstan.pystan import StanFit
 from skstan.regression import LinearRegressionBase
 from skstan.regression import LinearRegressionMixin
 from skstan.utils import sigmoid_each
@@ -15,8 +14,8 @@ class LinearRegression(LinearRegressionBase,
         super().__init__(shrinkage)
 
     def fit(self, x: np.array, y: np.array) -> LinearRegressionBase:
-        data = self.stan_data(x, y, shrinkage=self.shrinkage, has_std=True)
-        self.stanfit = StanFit(self.inference(data=data, **self._kwargs))
+        data = self.stan_data(x, y, shrinkage=self.shrinkage, additional_params={'sigma_upper': y.std()})
+        self.stanfit = self.inference(data=data, **self._kwargs)
         return self
 
     def predict_dist(self, x: np.array) -> np.array:
@@ -63,7 +62,8 @@ class LogisticRegression(LinearRegressionBase,
         super().__init__(shrinkage)
 
     def fit(self, x: np.array, y: np.array) -> LinearRegressionBase:
-        return self._default_fit(x, y, shrinkage=self.shrinkage)
+        self.stanfit = self._default_fit(x, y, shrinkage=self.shrinkage)
+        return self
 
     def predict_dist(self, x: np.array) -> np.array:
         return self.distribution(x, self.stanfit)
@@ -106,7 +106,8 @@ class PoissonRegression(LinearRegressionBase,
         super().__init__(shrinkage)
 
     def fit(self, x: np.array, y: np.array) -> LinearRegressionBase:
-        return self._default_fit(x, y, shrinkage=self.shrinkage)
+        self.stanfit = self._default_fit(x, y, shrinkage=self.shrinkage)
+        return self
 
     def predict_dist(self, x: np.array) -> np.array:
         return self.distribution(x)

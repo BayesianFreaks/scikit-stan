@@ -13,13 +13,13 @@ class StanFit:
 
 class PystanMixin:
 
-    def inference(self, data, **kwargs):
-        return ps.stan(model_code=self.model_code, data=data, **kwargs)
+    def inference(self, data, **kwargs) -> StanFit:
+        return StanFit(ps.stan(model_code=self.model_code, data=data, **kwargs))
 
 
 class LinearRegressionPystanMixin(PystanMixin):
 
-    def distribution(self, x: np.array, stanfit: StanFit):
+    def distribution(self, x: np.array, stanfit: StanFit) -> np.array:
         if stanfit is None:
             raise ValueError('stanfit is not initialized. call fit function before prediction of distribution.')
         a = lambda: stanfit.fit.extract()['alpha']
