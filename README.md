@@ -4,7 +4,7 @@
 
 ## What is scikit-stan
 `scikit-stan` will enable you to use various bayesian models based on 
-`stan`(http://mc-stan.org) and `pystan` with a elegant interface like a 
+`stan`(http://mc-stan.org) and `pystan` with an elegant interface like a
 `scikit-learn` or `keras`.
 
 ## Demo
