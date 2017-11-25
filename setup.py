@@ -19,7 +19,7 @@ def rst_readme():
             return f.read()
 
 
-description = "Various bayesian models based on stan and pystan with a elegant interface like a scikit-learn or keras."
+description = "Various bayesian models based on stan and pystan with an elegant interface like a scikit-learn or keras."
 
 setup(
     name='skstan',
