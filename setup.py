@@ -19,8 +19,7 @@ def rst_readme():
 
 
 DESCRIPTION = """
-scikit-stan is a high-level Bayesian analysis API. 
-Various bayesian models based on stan and pystan with an elegant interface like a scikit-learn.
+scikit-stan is a high-level Bayesian analysis API written in Python.
 """
 
 INSTALL_REQUIREMENTS = [
