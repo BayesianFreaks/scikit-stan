@@ -2,10 +2,9 @@ import sys
 
 from setuptools import find_packages
 from setuptools import setup
-from skstan import __version__
 
 sys.path.append('./skstan')
-sys.path.append('./test')
+sys.path.append('./tests')
 
 
 def rst_readme():
@@ -19,28 +18,32 @@ def rst_readme():
             return f.read()
 
 
-DESCRIPTION = "Various bayesian models based on stan and pystan with an elegant interface like a scikit-learn or keras."
+DESCRIPTION = """
+scikit-stan is a high-level Bayesian analysis API. 
+Various bayesian models based on stan and pystan with an elegant interface like a scikit-learn.
+"""
+
+INSTALL_REQUIREMENTS = [
+    'pystan'
+]
 
 setup(
     name='skstan',
-    version=__version__,
+    version='0.0.0-dev',
     url='https://skstan.org/latest/doc/',
-    packages=find_packages(exclude=['test*']),
+    packages=find_packages(exclude=['tests*']),
     description=DESCRIPTION,
     long_description=rst_readme(),
     author='scikit-stan development team',
     author_email='scikit-stan@googlegroups.com',
-    test_suite='test',
+    test_suite='tests',
     package_data={
         '': ['*.yaml']
     },
-    install_requires=[
-        'numpy',
-        'scipy',
-        'pandas',
-        'pystan',
-        'pyyaml',
-    ],
+    install_requires=INSTALL_REQUIREMENTS,
+    extras_require={
+        'tests': ['pytest']
+    },
     classifiers=[
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',

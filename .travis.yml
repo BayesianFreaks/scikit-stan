@@ -18,7 +18,7 @@ install:
 
 script:
   # command to run tests.
-  - coverage run setup.py test
+  - PYTHONPATH=$PWD:$PYTHONPATH py.test --cov=tests/
 
 after_success:
   # submit coverage to codecov.
