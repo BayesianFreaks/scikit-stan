@@ -5,6 +5,7 @@ TMP_DIR = '/tmp'
 
 SKSTAN_HOME_ENV_VAR = 'SKSTAN_HOME'
 SKSTAN_DIR = '.skstan'
+SKSTAN_JSON = 'skstan.json'
 
 DEFAULT_BACKGROUND = 'stan'
 
@@ -13,12 +14,11 @@ def has_write_permission(dir_name):
     return os.access(dir_name, os.W_OK)
 
 
-def extract_backend(skstan_dir):
-    config_file_path = os.path.join(skstan_dir, 'skstan.json')
+def extract_skstan_config(skstan_dir):
+    config_file_path = os.path.join(skstan_dir, SKSTAN_JSON)
     if os.path.exists(config_file_path):
         with open(config_file_path) as f:
-            config_json = json.load(f)
-        return config_json
+            return json.load(f)
 
 
 # if SKSTAN_HOME environment variable exists, use its value as skstan dir.
@@ -32,7 +32,7 @@ else:
         _skstan_dir = TMP_DIR
 
 try:
-    _config_json = extract_backend(_skstan_dir)
+    _config_json = extract_skstan_config(_skstan_dir)
     _CURRENT_BACKEND = _config_json['backend']
 except KeyError:
     _CURRENT_BACKEND = DEFAULT_BACKGROUND

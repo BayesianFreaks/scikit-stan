@@ -1,10 +1,16 @@
+import glob
+import os
+import pickle
 import sys
 
+from pystan import StanModel
 from setuptools import find_packages
 from setuptools import setup
 
 sys.path.append('./skstan')
 sys.path.append('./tests')
+
+PKL_STAN_MODEL_DIR = './stan_model'
 
 
 def rst_readme():
@@ -16,6 +22,27 @@ def rst_readme():
         print("warning: pypandoc module not found, could not convert Markdown to RST")
         with open('README.md') as f:
             return f.read()
+
+
+def build_stan_model():
+    def is_stan_file(file_name):
+        _, ext = os.path.splitext(file_name)
+        return ext == '.stan'
+
+    stan_file_list = [name for name in glob.glob('stan/**', recursive=True) if is_stan_file(name)]
+    for stan_file in stan_file_list:
+        with open(stan_file) as f:
+            stan_code = f.read()
+
+        stan_model = StanModel(model_code=stan_code)
+        pkl_file_name = os.path.basename(stan_file.replace('.stan', '.pkl'))
+        target_dir_name = os.path.join(PKL_STAN_MODEL_DIR, os.path.dirname(stan_file).replace('stan/', ''))
+
+        # output pickle file to stan_model/{model_group}/{pickle_file}
+        if not os.path.exists(target_dir_name):
+            os.mkdir(target_dir_name)
+        with open(os.path.join(target_dir_name, pkl_file_name), 'wb') as f:
+            pickle.dump(stan_model, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 DESCRIPTION = """
