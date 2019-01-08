@@ -143,3 +143,6 @@ ENV/
 
 # OS generated files
 .DS_Store
+
+# stan model
+stan_model/
