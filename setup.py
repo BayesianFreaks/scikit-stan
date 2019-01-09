@@ -2,6 +2,7 @@ import glob
 import os
 import pickle
 import sys
+from distutils.command.build_py import build_py as _build_py
 
 from pystan import StanModel
 from setuptools import find_packages
@@ -10,7 +11,7 @@ from setuptools import setup
 sys.path.append('./skstan')
 sys.path.append('./tests')
 
-PKL_STAN_MODEL_DIR = './stan_model'
+PKL_STAN_MODEL_BASE_DIR = './stan_model'
 
 
 def rst_readme():
@@ -36,13 +37,23 @@ def build_stan_model():
 
         stan_model = StanModel(model_code=stan_code)
         pkl_file_name = os.path.basename(stan_file.replace('.stan', '.pkl'))
-        target_dir_name = os.path.join(PKL_STAN_MODEL_DIR, os.path.dirname(stan_file).replace('stan/', ''))
+        target_dir_name = os.path.join(PKL_STAN_MODEL_BASE_DIR, os.path.dirname(stan_file).replace('stan/', ''))
 
         # output pickle file to stan_model/{model_group}/{pickle_file}
         if not os.path.exists(target_dir_name):
             os.mkdir(target_dir_name)
         with open(os.path.join(target_dir_name, pkl_file_name), 'wb') as f:
             pickle.dump(stan_model, f, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+class BuildCmd(_build_py):
+    """
+    build stan models.
+    """
+    def run(self):
+        if not self._dry_run:
+            pass
+        _build_py.run(self)
 
 
 DESCRIPTION = """
@@ -69,6 +80,9 @@ setup(
     install_requires=INSTALL_REQUIREMENTS,
     extras_require={
         'tests': ['pytest']
+    },
+    cmdclass={
+        'build_py': BuildCmd
     },
     classifiers=[
         'Intended Audience :: Developers',
