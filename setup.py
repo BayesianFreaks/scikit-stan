@@ -2,7 +2,7 @@ import glob
 import os
 import pickle
 import sys
-from distutils.command.build_py import build_py as _build_py
+from distutils.command.build_py import build_py
 
 from pystan import StanModel
 from setuptools import find_packages
@@ -46,14 +46,15 @@ def build_stan_model():
             pickle.dump(stan_model, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-class BuildCmd(_build_py):
+class BuildCmd(build_py):
     """
     build stan models.
     """
     def run(self):
         if not self._dry_run:
+            # TODO: build stan models.
             pass
-        _build_py.run(self)
+        build_py.run(self)
 
 
 DESCRIPTION = """

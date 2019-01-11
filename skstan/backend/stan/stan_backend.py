@@ -27,7 +27,7 @@ class StanBackend:
         Returns
         -------
         StanModel
-            A StanModel object that specified by model_name argument.
+            A StanModel object specified by model_name argument.
         """
         pkl_file_name = StanBackend.MODEL_PKL_MAP[model_name]
         pkl_file_path = os.path.join(StanBackend.PKL_BASE_DIR, pkl_file_name)

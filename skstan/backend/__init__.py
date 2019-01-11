@@ -30,5 +30,6 @@ else:
 try:
     _config_json = extract_skstan_config(_skstan_dir)
     _CURRENT_BACKEND = _config_json['backend']
-except KeyError:
+except (KeyError, TypeError):
+    # TODO: fix error handling when stan json does not exist.
     _CURRENT_BACKEND = DEFAULT_BACKGROUND
