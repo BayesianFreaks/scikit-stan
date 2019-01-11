@@ -3,16 +3,16 @@ import pickle
 
 from skstan.utils.field import LINEAR_REGRESSION, LOGISTIC_REGRESSION, POISSON_REGRESSION
 
-PKL_BASE_DIR = 'stan_model'
-
-MODEL_PKL_MAP = {
-    LINEAR_REGRESSION: 'linear_regression.pkl',
-    LOGISTIC_REGRESSION: 'logistic_regression.pkl',
-    POISSON_REGRESSION: 'poisson_regression.pkl'
-}
-
 
 class StanBackend:
+
+    PKL_BASE_DIR = 'stan_model'  # TODO: change to the appropriate dir.
+
+    MODEL_PKL_MAP = {
+        LINEAR_REGRESSION: 'linear_regression.pkl',
+        LOGISTIC_REGRESSION: 'logistic_regression.pkl',
+        POISSON_REGRESSION: 'poisson_regression.pkl'
+    }
 
     @staticmethod
     def load_stan_model(model_name):
@@ -29,7 +29,7 @@ class StanBackend:
         StanModel
             A StanModel object that specified by model_name argument.
         """
-        pkl_file_name = MODEL_PKL_MAP[model_name]
-        pkl_file_path = os.path.join(PKL_BASE_DIR, pkl_file_name)
+        pkl_file_name = StanBackend.MODEL_PKL_MAP[model_name]
+        pkl_file_path = os.path.join(StanBackend.PKL_BASE_DIR, pkl_file_name)
         with open(pkl_file_path, 'rb') as f:
             return pickle.load(f)
