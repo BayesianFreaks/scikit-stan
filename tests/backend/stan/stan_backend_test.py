@@ -1,6 +1,7 @@
+from pystan import StanModel
+
 from skstan.backend.stan import StanBackend
 from tests.rootdir import TEST_DIR_ROOT
-from pystan import StanModel
 
 
 class TestStanBackend:
