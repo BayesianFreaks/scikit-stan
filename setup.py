@@ -12,6 +12,7 @@ sys.path.append('./skstan')
 sys.path.append('./tests')
 
 PKL_STAN_MODEL_BASE_DIR = './stan_model'
+STAN_CODE_DIR = 'stan'
 
 
 def rst_readme():
@@ -25,12 +26,12 @@ def rst_readme():
             return f.read()
 
 
-def build_stan_model():
+def build_and_output_stan_model():
     def is_stan_file(file_name):
         _, ext = os.path.splitext(file_name)
         return ext == '.stan'
 
-    stan_file_list = [name for name in glob.glob('stan/**', recursive=True) if is_stan_file(name)]
+    stan_file_list = [name for name in glob.glob(STAN_CODE_DIR + '/**', recursive=True) if is_stan_file(name)]
     for stan_file in stan_file_list:
         with open(stan_file) as f:
             stan_code = f.read()
@@ -39,7 +40,7 @@ def build_stan_model():
         pkl_file_name = os.path.basename(stan_file.replace('.stan', '.pkl'))
         target_dir_name = os.path.join(PKL_STAN_MODEL_BASE_DIR, os.path.dirname(stan_file).replace('stan/', ''))
 
-        # output pickle file to stan_model/{model_group}/{pickle_file}
+        # output pickle file to a path `stan_model/{model_group}/{pickle_file}`
         if not os.path.exists(target_dir_name):
             os.mkdir(target_dir_name)
         with open(os.path.join(target_dir_name, pkl_file_name), 'wb') as f:
@@ -48,12 +49,13 @@ def build_stan_model():
 
 class BuildCmd(build_py):
     """
-    build stan models.
+    build stan models at setup.
     """
+
     def run(self):
         if not self._dry_run:
-            # TODO: build stan models.
-            pass
+            # build stan model and output pickled file.
+            build_and_output_stan_model()
         build_py.run(self)
 
 
@@ -83,7 +85,7 @@ setup(
         'tests': ['pytest']
     },
     cmdclass={
-        'build_py': BuildCmd
+        'build_py': BuildCmd,
     },
     classifiers=[
         'Intended Audience :: Developers',
