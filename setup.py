@@ -8,11 +8,16 @@ from pystan import StanModel
 from setuptools import find_packages
 from setuptools import setup
 
+import skstan
+
 sys.path.append('./skstan')
 sys.path.append('./tests')
 
 PKL_STAN_MODEL_BASE_DIR = './stan_model'
 STAN_CODE_DIR = 'stan'
+
+
+VERSION = skstan.__version__
 
 
 def rst_readme():
@@ -69,7 +74,7 @@ INSTALL_REQUIREMENTS = [
 
 setup(
     name='skstan',
-    version='0.0.0-dev',
+    version=VERSION,
     url='https://skstan.org/latest/doc/',
     packages=find_packages(exclude=['tests*']),
     description=DESCRIPTION,
