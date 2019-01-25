@@ -1,7 +1,11 @@
 import os
 import pickle
 
-from skstan.utils.field import LINEAR_REGRESSION, LOGISTIC_REGRESSION, POISSON_REGRESSION
+from skstan.utils.field import (
+    LINEAR_REGRESSION,
+    LOGISTIC_REGRESSION,
+    POISSON_REGRESSION
+)
 
 
 class StanBackend:
@@ -17,8 +21,8 @@ class StanBackend:
     @staticmethod
     def load_stan_model(model_name):
         """
-        Load a pickled stan model and return a `StanModel` instance specified by the argument.
-        `StanModel` class is belong to PyStan.
+        Load a pickled stan model and return a `StanModel` instance specified
+        by the argument. `StanModel` class is belong to PyStan.
 
         Parameters
         ----------

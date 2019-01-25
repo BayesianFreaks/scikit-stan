@@ -28,8 +28,8 @@ class LogisticRegression(BaseLinearRegression):
 
     """
 
-    def __init__(self, fit_intercept=True, intercept_scaling=1, multi_class=None,
-                 verbose=0, n_jobs=None, class_weight=None):
+    def __init__(self, fit_intercept=True, intercept_scaling=1,
+                 multi_class=None, verbose=0, n_jobs=None, class_weight=None):
         self._fit_intercept = fit_intercept
         self._intercept_scaling = intercept_scaling
         self._multi_class = multi_class
