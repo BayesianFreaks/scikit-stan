@@ -15,7 +15,6 @@ sys.path.append('./tests')
 PKL_STAN_MODEL_BASE_DIR = 'skstan/stan_model'
 STAN_CODE_DIR = 'stan'
 
-
 VERSION = skstan.__version__
 
 
@@ -25,7 +24,8 @@ def rst_readme():
         readme_text = convert('README.md', 'rst')
         return readme_text
     except ImportError:
-        print("warning: pypandoc module not found, could not convert Markdown to RST")
+        print("warning: pypandoc module not found, "
+              "could not convert Markdown to RST")
         with open('README.md') as f:
             return f.read()
 
@@ -37,14 +37,19 @@ def build_and_output_stan_model(target_base_dir):
         _, ext = os.path.splitext(file_name)
         return ext == '.stan'
 
-    stan_file_list = [name for name in glob.glob(STAN_CODE_DIR + '/**', recursive=True) if is_stan_file(name)]
+    stan_file_list = [name for name in
+                      glob.glob(STAN_CODE_DIR + '/**', recursive=True)
+                      if is_stan_file(name)]
+
     for stan_file in stan_file_list:
         with open(stan_file) as f:
             stan_code = f.read()
 
         stan_model = StanModel(model_code=stan_code)
         pkl_file_name = os.path.basename(stan_file.replace('.stan', '.pkl'))
-        target_dir_name = os.path.join(target_base_dir, os.path.dirname(stan_file).replace('stan/', ''))
+        target_dir_name = os.path.join(target_base_dir,
+                                       os.path.dirname(stan_file).replace(
+                                           'stan/', ''))
 
         # output pickle file to a path `stan_model/{model_group}/{pickle_file}`
         if not os.path.exists(target_dir_name):
