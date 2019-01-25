@@ -46,14 +46,14 @@ def build_and_output_stan_model(target_base_dir):
 
         stan_model = StanModel(model_code=stan_code)
         pkl_file_name = os.path.basename(stan_file.replace('.stan', '.pkl'))
-        target_dir_name = os.path.join(target_base_dir,
-                                       os.path.dirname(stan_file).replace(
-                                           'stan/', ''))
+        target_sub_dir = os.path.dirname(stan_file).replace('stan/', '')
+        target_dir_name = os.path.join(target_base_dir, target_sub_dir)
+        target_file_name = os.path.join(target_dir_name, pkl_file_name)
 
         # output pickle file to a path `stan_model/{model_group}/{pickle_file}`
         if not os.path.exists(target_dir_name):
             os.mkdir(target_dir_name)
-        with open(os.path.join(target_dir_name, pkl_file_name), 'wb') as f:
+        with open(target_file_name, 'wb') as f:
             pickle.dump(stan_model, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 
