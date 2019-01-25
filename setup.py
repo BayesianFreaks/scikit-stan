@@ -4,7 +4,6 @@ import pickle
 import sys
 from distutils.command.build_py import build_py
 
-from pystan import StanModel
 from setuptools import find_packages
 from setuptools import setup
 
@@ -13,7 +12,7 @@ import skstan
 sys.path.append('./skstan')
 sys.path.append('./tests')
 
-PKL_STAN_MODEL_BASE_DIR = './stan_model'
+PKL_STAN_MODEL_BASE_DIR = 'skstan/stan_model'
 STAN_CODE_DIR = 'stan'
 
 
@@ -31,7 +30,9 @@ def rst_readme():
             return f.read()
 
 
-def build_and_output_stan_model():
+def build_and_output_stan_model(target_base_dir):
+    from pystan import StanModel
+
     def is_stan_file(file_name):
         _, ext = os.path.splitext(file_name)
         return ext == '.stan'
@@ -43,7 +44,7 @@ def build_and_output_stan_model():
 
         stan_model = StanModel(model_code=stan_code)
         pkl_file_name = os.path.basename(stan_file.replace('.stan', '.pkl'))
-        target_dir_name = os.path.join(PKL_STAN_MODEL_BASE_DIR, os.path.dirname(stan_file).replace('stan/', ''))
+        target_dir_name = os.path.join(target_base_dir, os.path.dirname(stan_file).replace('stan/', ''))
 
         # output pickle file to a path `stan_model/{model_group}/{pickle_file}`
         if not os.path.exists(target_dir_name):
@@ -60,7 +61,9 @@ class BuildCmd(build_py):
     def run(self):
         if not self._dry_run:
             # build stan model and output pickled file.
-            build_and_output_stan_model()
+            target_dir = os.path.join(self.build_lib, PKL_STAN_MODEL_BASE_DIR)
+            self.mkpath(target_dir)
+            build_and_output_stan_model(target_dir)
         build_py.run(self)
 
 
@@ -68,24 +71,27 @@ DESCRIPTION = """
 scikit-stan is a high-level Bayesian analysis API written in Python.
 """
 
-INSTALL_REQUIREMENTS = [
+INSTALL_REQUIRES = [
     'pystan'
 ]
 
 setup(
     name='skstan',
     version=VERSION,
-    url='https://skstan.org/latest/doc/',
+    url='https://skstan.org',
     packages=find_packages(exclude=['tests*']),
     description=DESCRIPTION,
     long_description=rst_readme(),
-    author='scikit-stan development team',
+    author='scikit-stan developers',
     author_email='scikit-stan@googlegroups.com',
     test_suite='tests',
     package_data={
         '': ['*.yaml']
     },
-    install_requires=INSTALL_REQUIREMENTS,
+    install_requires=INSTALL_REQUIRES,
+    setup_requires=[
+        'pystan',
+    ],
     extras_require={
         'tests': ['pytest']
     },
@@ -99,5 +105,6 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Scientific/Engineering :: Mathematics',
     ],
+    zip_safe=False,
     license="MIT"
 )
