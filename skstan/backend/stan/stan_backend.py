@@ -4,6 +4,7 @@ import pickle
 from pystan import StanModel
 
 from skstan import PROJECT_ROOT
+from skstan.backend import BaseBackend
 from skstan.model.lgm import (
     LINEAR_REGRESSION,
     LOGISTIC_REGRESSION,
@@ -11,7 +12,7 @@ from skstan.model.lgm import (
 )
 
 
-class StanBackend:
+class StanBackend(BaseBackend):
     """
     Stan backend class.
 
@@ -19,7 +20,8 @@ class StanBackend:
     """
 
     def __init__(self):
-        pass
+        # print backend name to check .
+        print('stan backend.')
 
     def sample(self):
         pass
