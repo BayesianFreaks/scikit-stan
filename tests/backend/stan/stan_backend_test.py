@@ -6,9 +6,12 @@ from tests import TEST_ROOT
 
 class TestStanModelLoader:
 
-    def test_load_stan_model(self):
+    def test_load_stan_model(self, monkeypatch):
         # Test that a pickled stan model is loaded and deserialized.
-        StanModelLoader.PKL_BASE_DIR = TEST_ROOT + '/test_model'
+
+        # Replace the base directory of pickled files to the test directory.
+        monkeypatch.setattr(StanModelLoader, '_PKL_BASE_DIR',
+                            TEST_ROOT + '/test_model')
         model_name = 'linear_regression'
         actual_model = StanModelLoader.load_stan_model(model_name)
 

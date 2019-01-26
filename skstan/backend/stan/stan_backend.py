@@ -29,22 +29,24 @@ class StanModelLoader:
     """
     Stan model loader class.
 
-    This class provides the static method to load a compiled stan models.
+    This class provides the static method (class method) to load a compiled
+    stan model.
     """
 
-    PKL_BASE_DIR = os.path.join(PROJECT_ROOT, 'stan_model')
+    _PKL_BASE_DIR = os.path.join(PROJECT_ROOT, 'stan_model')
 
-    MODEL_PKL_MAP = {
+    _MODEL_PKL_MAP = {
         LINEAR_REGRESSION: 'linear_regression.pkl',
         LOGISTIC_REGRESSION: 'logistic_regression.pkl',
         POISSON_REGRESSION: 'poisson_regression.pkl'
     }
 
-    @staticmethod
-    def load_stan_model(model_name: str) -> StanModel:
+    @classmethod
+    def load_stan_model(cls, model_name: str) -> StanModel:
         """
         Load a pickled stan model and return a `StanModel` instance specified
-        by the argument. `StanModel` class is belong to PyStan.
+        by the argument.
+        `StanModel` class is belong to PyStan.
 
         Parameters
         ----------
@@ -56,8 +58,7 @@ class StanModelLoader:
         StanModel
             A StanModel object specified by model_name argument.
         """
-        pkl_file_name = StanModelLoader.MODEL_PKL_MAP[model_name]
-        pkl_file_path = os.path.join(StanModelLoader.PKL_BASE_DIR,
-                                     pkl_file_name)
+        pkl_file_name = cls._MODEL_PKL_MAP[model_name]
+        pkl_file_path = os.path.join(cls._PKL_BASE_DIR, pkl_file_name)
         with open(pkl_file_path, 'rb') as f:
             return pickle.load(f)
