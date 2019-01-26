@@ -20,8 +20,7 @@ install:
 script:
   # command to run tests.
   - python --version
-  - PYTHONPATH=$PWD:$PYTHONPATH py.test --cov=tests/
-  - PYTHONPATH=$PWD:$PYTHONPATH py.test --pep8
+  - PYTHONPATH=$PWD:$PYTHONPATH py.test --cov=tests/ --pep8
 
 after_success:
   # submit coverage to codecov.
