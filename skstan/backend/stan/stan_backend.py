@@ -20,7 +20,8 @@ class StanBackend(BaseBackend):
     """
 
     def __init__(self):
-        pass
+        # print backend name to check .
+        print('stan backend.')
 
     def sample(self):
         pass

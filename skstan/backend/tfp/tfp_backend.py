@@ -8,7 +8,8 @@ class TFPBackend(BaseBackend):
     TensorFlow backend class.
     """
     def __init__(self):
-        pass
+        # print backend name to check .
+        print("tfp backend.")
 
     def sample(self):
         pass
