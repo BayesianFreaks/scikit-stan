@@ -1,1 +1,4 @@
-from .stan_backend import *
+from skstan.backend import StanBackend
+
+# backend class.
+Backend = StanBackend
