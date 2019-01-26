@@ -1,6 +1,6 @@
 from pystan import StanModel
 
-from skstan.backend.stan import StanModelLoader
+from skstan.backend.stan.stan_backend import StanModelLoader
 from tests import TEST_ROOT
 
 

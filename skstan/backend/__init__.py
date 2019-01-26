@@ -25,7 +25,6 @@ def _save_skstan_config(skstan_dir: str, current_backend: str) -> None:
         try:
             os.makedirs(skstan_dir)
         except OSError:
-            print("os error")
             pass
 
     config_file_path = os.path.join(skstan_dir, SKSTAN_JSON)
