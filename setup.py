@@ -24,8 +24,7 @@ def rst_readme():
         readme_text = convert('README.md', 'rst')
         return readme_text
     except ImportError:
-        print("warning: pypandoc module not found, "
-              "could not convert Markdown to RST")
+        print("warning: pypandoc module not found, could not convert Markdown to RST")
         with open('README.md') as f:
             return f.read()
 
