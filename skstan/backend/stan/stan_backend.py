@@ -1,7 +1,10 @@
 import os
 import pickle
 
-from skstan.utils.field import (
+from pystan import StanModel
+
+from skstan import PROJECT_ROOT
+from skstan.model.lgm import (
     LINEAR_REGRESSION,
     LOGISTIC_REGRESSION,
     POISSON_REGRESSION
@@ -9,20 +12,41 @@ from skstan.utils.field import (
 
 
 class StanBackend:
+    """
+    Stan backend class.
 
-    PKL_BASE_DIR = 'stan_model'  # TODO: change to the appropriate dir.
+    Wrapper of `PyStan`.
+    """
 
-    MODEL_PKL_MAP = {
+    def __init__(self):
+        pass
+
+    def sample(self):
+        pass
+
+
+class StanModelLoader:
+    """
+    Stan model loader class.
+
+    This class provides the static method (class method) to load a compiled
+    stan model.
+    """
+
+    _PKL_BASE_DIR = os.path.join(PROJECT_ROOT, 'stan_model')
+
+    _MODEL_PKL_MAP = {
         LINEAR_REGRESSION: 'linear_regression.pkl',
         LOGISTIC_REGRESSION: 'logistic_regression.pkl',
         POISSON_REGRESSION: 'poisson_regression.pkl'
     }
 
-    @staticmethod
-    def load_stan_model(model_name):
+    @classmethod
+    def load_stan_model(cls, model_name: str) -> StanModel:
         """
         Load a pickled stan model and return a `StanModel` instance specified
-        by the argument. `StanModel` class is belong to PyStan.
+        by the argument.
+        `StanModel` class is belong to PyStan.
 
         Parameters
         ----------
@@ -34,7 +58,7 @@ class StanBackend:
         StanModel
             A StanModel object specified by model_name argument.
         """
-        pkl_file_name = StanBackend.MODEL_PKL_MAP[model_name]
-        pkl_file_path = os.path.join(StanBackend.PKL_BASE_DIR, pkl_file_name)
+        pkl_file_name = cls._MODEL_PKL_MAP[model_name]
+        pkl_file_path = os.path.join(cls._PKL_BASE_DIR, pkl_file_name)
         with open(pkl_file_path, 'rb') as f:
             return pickle.load(f)
