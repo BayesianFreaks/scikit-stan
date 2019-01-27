@@ -1,11 +1,13 @@
 import importlib
+import json
 import os
 import shutil
 
 from assertpy import assert_that
 
 import skstan.backend
-import json
+from skstan.backend.stan.stan_backend import StanBackend
+from skstan.backend.tfp.tfp_backend import TFPBackend
 
 
 def setup_function():
@@ -37,6 +39,9 @@ def test_import_backend_without_config(monkeypatch):
     assert 'stan' == config_dict['backend']
     assert skstan.backend._CURRENT_BACKEND == 'stan'
 
+    current_backend = skstan.backend.Backend()
+    assert_that(current_backend).is_instance_of(StanBackend)
+
 
 def test_import_backend_with_config(monkeypatch):
     # test that the existing config json is read.
@@ -56,3 +61,6 @@ def test_import_backend_with_config(monkeypatch):
 
     assert skstan.backend._skstan_dir == '/tmp/.skstan'
     assert skstan.backend._CURRENT_BACKEND == 'tfp'
+
+    current_backend = skstan.backend.Backend()
+    assert_that(current_backend).is_instance_of(TFPBackend)
