@@ -13,14 +13,14 @@ SKSTAN_JSON = 'skstan.json'
 DEFAULT_BACKGROUND = 'stan'
 
 
-def _extract_skstan_config(skstan_dir: str) -> dict:
+def _read_skstan_json(skstan_dir: str) -> dict:
     config_file_path = os.path.join(skstan_dir, SKSTAN_JSON)
     if os.path.exists(config_file_path):
         with open(config_file_path) as f:
             return json.load(f)
 
 
-def _save_skstan_config(skstan_dir: str, current_backend: str) -> None:
+def _save_skstan_json(skstan_dir: str, current_backend: str) -> None:
     if not os.path.exists(skstan_dir):
         try:
             os.makedirs(skstan_dir)
@@ -51,15 +51,14 @@ else:
         _skstan_dir = TMP_DIR
 
 try:
-    _config_dict = _extract_skstan_config(_skstan_dir)
+    _config_dict = _read_skstan_json(_skstan_dir)
     _CURRENT_BACKEND = _config_dict['backend']
 except (KeyError, TypeError):
     # TODO: fix error handling when skstan json does not exist.
     _CURRENT_BACKEND = DEFAULT_BACKGROUND
 
-
 # try to save skstan config json.
-_save_skstan_config(_skstan_dir, _CURRENT_BACKEND)
+_save_skstan_json(_skstan_dir, _CURRENT_BACKEND)
 
 # Import the current Backend classes.
 if _CURRENT_BACKEND == 'stan':

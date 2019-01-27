@@ -21,15 +21,16 @@ def teardown_function():
 
 
 def test_import_backend_without_config(monkeypatch):
-    # test that the default backend is used
+    # Test that the default backend is used
     # if a config json does not exist.
     def mock_tmp_directory(dummy):
         return '/tmp'
 
+    # The .skstan directory which contains skstan.json is located at the local
+    # home  directory by default. Now, the value of the variable which
+    # represents the location of .skstan directory will be replaced to /tmp.
     monkeypatch.setattr(os.path, 'expanduser', mock_tmp_directory)
     importlib.reload(skstan.backend)
-
-    assert skstan.backend._skstan_dir == '/tmp/.skstan'
 
     with open('/tmp/.skstan/skstan.json', 'r') as f:
         config_dict = json.load(f)
@@ -44,7 +45,7 @@ def test_import_backend_without_config(monkeypatch):
 
 
 def test_import_backend_with_config(monkeypatch):
-    # test that the existing config json is read.
+    # Test that the existing config json is read.
     def mock_tmp_directory(dummy):
         return '/tmp'
 
@@ -52,14 +53,17 @@ def test_import_backend_with_config(monkeypatch):
         'backend': 'tfp'
     }
 
+    # Create .skstan directory and write config json before testing.
     os.makedirs('/tmp/.skstan')
     with open('/tmp/.skstan/skstan.json', 'w') as f:
         f.write(json.dumps(test_config, indent=2))
 
+    # The .skstan directory which contains skstan.json is located at the local
+    # home  directory by default. Now, the value of the variable which
+    # represents the location of .skstan directory will be replaced to /tmp.
     monkeypatch.setattr(os.path, 'expanduser', mock_tmp_directory)
     importlib.reload(skstan.backend)
 
-    assert skstan.backend._skstan_dir == '/tmp/.skstan'
     assert skstan.backend._CURRENT_BACKEND == 'tfp'
 
     current_backend = skstan.backend.Backend()
