@@ -27,8 +27,9 @@ def test_import_backend_without_config(monkeypatch):
         return '/tmp'
 
     # The .skstan directory which contains skstan.json is located at the local
-    # home  directory by default. Now, the value of the variable which
-    # represents the location of .skstan directory will be replaced to /tmp.
+    # home directory by default. Using monkeypatch, the value of the variable
+    # which represents the location of .skstan directory will be replaced to
+    # /tmp.
     monkeypatch.setattr(os.path, 'expanduser', mock_tmp_directory)
     importlib.reload(skstan.backend)
 
@@ -59,8 +60,9 @@ def test_import_backend_with_config(monkeypatch):
         f.write(json.dumps(test_config, indent=2))
 
     # The .skstan directory which contains skstan.json is located at the local
-    # home  directory by default. Now, the value of the variable which
-    # represents the location of .skstan directory will be replaced to /tmp.
+    # home directory by default. Using monkeypatch, the value of the variable
+    # which represents the location of .skstan directory will be replaced to
+    # /tmp.
     monkeypatch.setattr(os.path, 'expanduser', mock_tmp_directory)
     importlib.reload(skstan.backend)
 
