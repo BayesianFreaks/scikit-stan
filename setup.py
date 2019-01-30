@@ -41,10 +41,7 @@ def build_and_output_stan_model(target_base_dir):
                       if is_stan_file(name)]
 
     for stan_file in stan_file_list:
-        with open(stan_file) as f:
-            stan_code = f.read()
-
-        stan_model = StanModel(model_code=stan_code)
+        stan_model = StanModel(file=stan_file, verbose=True)
         pkl_file_name = os.path.basename(stan_file.replace('.stan', '.pkl'))
         target_sub_dir_name = os.path.dirname(stan_file).replace('stan/', '')
         target_dir_name = os.path.join(target_base_dir, target_sub_dir_name)
