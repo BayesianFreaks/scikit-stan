@@ -1,24 +1,24 @@
-data{
+data {
   int N;
   int F;
-  matrix[N,F] x;
+  matrix[N, F] x;
   vector[N] y;
   real shrinkage;
   real sigma_upper;
 }
 
-parameters{
+parameters {
   vector[F] alpha;
   real beta;
   real<lower=0> sigma;
 }
 
-transformed parameters{
+transformed parameters {
   vector[N] yp;
   yp <- x * alpha + beta;
 }
 
-model{
+model {
   alpha ~ normal(0, shrinkage);
   beta ~ normal(0, shrinkage);
   sigma ~ uniform(0, sigma_upper);
