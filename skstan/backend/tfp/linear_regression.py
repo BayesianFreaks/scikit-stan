@@ -1,6 +1,5 @@
-from abc import ABCMeta, abstractmethod
-from typing import Callable
-from typing import Iterable
+from abc import ABCMeta
+from abc import abstractmethod
 
 import tensorflow as tf
 from tensorflow_probability import distributions as tfd
@@ -12,9 +11,8 @@ class BaseTFPLinearRegression(metaclass=ABCMeta):
     Abstract base class for Linear regression using TensorFlow Probability.
     """
 
-    def make_log_join_fn(
-            self, model_fn: Callable[[Iterable], tfd.Distribution]):
-        return ed.make_log_joint_fn(model_fn)
+    def make_log_join_fn(self, model_fn):
+        return ed.make_log_joint_fn(self.posterior_dist)
 
     @abstractmethod
     def posterior_dist(self, features):
@@ -65,11 +63,14 @@ class TFPLogisticRegression(BaseTFPLinearRegression):
         -------
 
         """
-        coeffs = ed.MultivariateNormalDiag(
-            loc=tf.zeros(features.shape[1]), name="coeffs")
-        labels = ed.Bernoulli(
-            logits=tf.tensordot(features, coeffs, [[1], [0]]), name="labels")
-        return labels
+        coeffs = ed.Normal(loc=0.0,
+                           scale=1.0,
+                           sample_shape=features.shape[1],
+                           name='coeffs')
+        outcomes = ed.Bernoulli(
+            logits=tf.tensordot(features, coeffs, [[1], [0]]),
+            name='outcomes')
+        return outcomes
 
 
 class PoissonRegression(BaseTFPLinearRegression):
