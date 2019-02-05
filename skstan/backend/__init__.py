@@ -2,7 +2,11 @@ import json
 import os
 import sys
 
-from .backend import BaseBackend
+from skstan.backend.backend import BaseBackend
+
+__all__ = [
+    'BaseBackend',
+]
 
 TMP_DIR = '/tmp'
 
