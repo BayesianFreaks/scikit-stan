@@ -2,7 +2,7 @@ import json
 import os
 import sys
 
-from skstan.backend.backend import BaseBackend
+from skstan.backend.base_backend import BaseBackend
 
 __all__ = [
     'BaseBackend',
