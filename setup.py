@@ -106,6 +106,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Scientific/Engineering :: Mathematics',
     ],
+    python_requires='>=3.6',
     zip_safe=False,
     license='MIT'
 )
