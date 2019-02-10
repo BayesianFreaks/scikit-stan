@@ -1,23 +1,23 @@
-data{
-    int n;
-    int f;
-    matrix[n,f] x;
-    int y[n];
-    real shrinkage;
+data {
+  int N;
+  int F;
+  matrix[N, F] x;
+  int y[N];
+  real shrinkage;
 }
 
-parameters{
-    vector[f] alpha;
-    real beta;
+parameters {
+  vector[F] alpha;
+  real beta;
 }
 
-transformed parameters{
-    vector[n] yp;
-    yp <- x*alpha + beta;
+transformed parameters {
+  vector[F] yp;
+  yp <- x * alpha + beta;
 }
 
-model{
-    alpha ~ normal(0, shrinkage);
-    beta ~ normal(0, shrinkage);
-    y ~ bernoulli_logit(yp);
+model {
+  alpha ~ normal(0, shrinkage);
+  beta ~ normal(0, shrinkage);
+  y ~ bernoulli_logit(yp);
 }
