@@ -104,9 +104,10 @@ setup(
         'Intended Audience :: Science/Research',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Scientific/Engineering :: Mathematics',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.5',
     zip_safe=False,
     license='MIT'
 )

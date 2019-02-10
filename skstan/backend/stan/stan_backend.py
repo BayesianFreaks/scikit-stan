@@ -44,7 +44,7 @@ class StanModelLoader:
     }
 
     @classmethod
-    def load_stan_model(cls, model_name: str) -> StanModel:
+    def load_stan_model(cls, model_name: str):
         """
         Load a pickled stan model and return a `StanModel` instance specified
         by the argument.
