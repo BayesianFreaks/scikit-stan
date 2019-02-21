@@ -11,7 +11,7 @@ class BaseTFPLinearRegression(metaclass=ABCMeta):
     Abstract base class for Linear regression using TensorFlow Probability.
     """
 
-    def make_log_join_fn(self, model_fn):
+    def log_join_fn(self):
         return ed.make_log_joint_fn(self.posterior_dist)
 
     @abstractmethod
@@ -73,7 +73,7 @@ class TFPLogisticRegression(BaseTFPLinearRegression):
         return outcomes
 
 
-class PoissonRegression(BaseTFPLinearRegression):
+class TFPPoissonRegression(BaseTFPLinearRegression):
     """
     Poisson regression implementation using TensorFlow Probability.
     """

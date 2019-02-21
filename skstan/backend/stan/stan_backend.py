@@ -5,23 +5,33 @@ from pystan import StanModel
 
 from skstan import PROJECT_ROOT
 from skstan.backend import BaseBackend
-from skstan.model.lgm import (
-    LINEAR_REGRESSION,
-    LOGISTIC_REGRESSION,
-    POISSON_REGRESSION
-)
+from skstan.backend.stan import StanLinearRegression
+from skstan.backend.stan import StanLogisticRegression
+from skstan.backend.stan import StanPoissonRegression
+
+# from skstan.model.lgm import (
+#     LINEAR_REGRESSION,
+#     LOGISTIC_REGRESSION,
+#     POISSON_REGRESSION
+# )
 
 
 class StanBackend(BaseBackend):
     """
     Stan backend class.
 
-    Wrapper of `PyStan`.
     """
+
+    LinearRegression = StanLinearRegression
+    LogisticRegression = StanLogisticRegression
+    PoissionRegression = StanPoissonRegression
 
     def __init__(self):
         # print backend name to check .
         print('stan backend.')
+
+    def get_model(self):
+        pass
 
     def sample(self):
         pass

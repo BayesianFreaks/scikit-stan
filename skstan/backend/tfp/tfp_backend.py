@@ -1,15 +1,25 @@
 import tensorflow_probability as tfp
 
 from skstan.backend import BaseBackend
+from skstan.backend.tfp import TFPLinearRegression
+from skstan.backend.tfp import TFPLogisticRegression
 
 
 class TFPBackend(BaseBackend):
     """
     TensorFlow backend class.
     """
+
+    LinearRegression = TFPLinearRegression
+    LogisitcRegression = TFPLogisticRegression
+    PoissionRegression = TFPPoissonRegression
+
     def __init__(self):
         # print backend name to check .
         print("tfp backend.")
+
+    def get_model(self):
+        pass
 
     def sample(self):
         pass
