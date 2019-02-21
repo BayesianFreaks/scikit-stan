@@ -1,24 +1,16 @@
 import os
 import pickle
 
-from pystan import StanModel
-
 from skstan import PROJECT_ROOT
-from skstan.backend import BaseBackend
 from skstan.backend.stan import StanLinearRegression
 from skstan.backend.stan import StanLogisticRegression
 from skstan.backend.stan import StanPoissonRegression
 
-# from skstan.model.lgm import (
-#     LINEAR_REGRESSION,
-#     LOGISTIC_REGRESSION,
-#     POISSON_REGRESSION
-# )
 
-
-class StanBackend(BaseBackend):
+class StanBackend:
     """
     Stan backend class.
+    This class provides model clases which are implemented by using Stan.
 
     """
 
@@ -30,12 +22,6 @@ class StanBackend(BaseBackend):
         # print backend name to check .
         print('stan backend.')
 
-    def get_model(self):
-        pass
-
-    def sample(self):
-        pass
-
 
 class StanModelLoader:
     """
@@ -43,15 +29,16 @@ class StanModelLoader:
 
     This class provides the static method (class method) to load a compiled
     stan model.
+
     """
 
     _PKL_BASE_DIR = os.path.join(PROJECT_ROOT, 'stan_model')
 
-    _MODEL_PKL_MAP = {
-        LINEAR_REGRESSION: 'linear_regression.pkl',
-        LOGISTIC_REGRESSION: 'logistic_regression.pkl',
-        POISSON_REGRESSION: 'poisson_regression.pkl'
-    }
+    # _MODEL_PKL_MAP = {
+    #     LINEAR_REGRESSION: 'linear_regression.pkl',
+    #     LOGISTIC_REGRESSION: 'logistic_regression.pkl',
+    #     POISSON_REGRESSION: 'poisson_regression.pkl'
+    # }
 
     @classmethod
     def load_stan_model(cls, model_name: str):

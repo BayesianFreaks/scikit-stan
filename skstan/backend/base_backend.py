@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class BaseBackend(metaclass=ABCMeta):
+class BaseBackendModel(metaclass=ABCMeta):
     """
-    Abstract base class for backends.
+    Abstract base class for backend model.
     """

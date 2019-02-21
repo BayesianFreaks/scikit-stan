@@ -5,8 +5,10 @@ import tensorflow as tf
 from tensorflow_probability import distributions as tfd
 from tensorflow_probability import edward2 as ed
 
+from skstan.backend.tfp import BaseTFPModel
 
-class BaseTFPLinearRegression(metaclass=ABCMeta):
+
+class BaseTFPLinearRegression(BaseTFPModel, metaclass=ABCMeta):
     """
     Abstract base class for Linear regression using TensorFlow Probability.
     """

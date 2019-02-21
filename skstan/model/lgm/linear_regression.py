@@ -1,4 +1,27 @@
+from skstan.backend import Backend
 from skstan.model.lgm import BaseLinearRegression
+
+
+class LinearRegression(BaseLinearRegression):
+    """
+    Linear regression model class.
+
+    Parameters
+    ----------
+
+    """
+
+    def __init__(self):
+        self._bk_model = Backend.LinearRegression()
+
+    def _validate_params(self):
+        pass
+
+    def fit(self, X, y):
+        pass
+
+    def predict(self, X):
+        pass
 
 
 class LogisticRegression(BaseLinearRegression):
@@ -7,35 +30,11 @@ class LogisticRegression(BaseLinearRegression):
 
     Parameters
     ----------
-    fit_intercept: bool, optional (defalut=True)
-        hogehoge.
-
-    intercept_scaling: float, optional (default=True)
-        hogehoge
-
-    multi_class: str,
-        hogehoge
-
-    verbose: int, optional (default=0)
-        hogehoge
-
-    n_jobs: int, optional (default=None)
-        The number of CPU cores.
-
-    class_weight: dict or 'balanced', optional (default=None)
-        hogehoge.
-
 
     """
 
-    def __init__(self, fit_intercept=True, intercept_scaling=1,
-                 multi_class=None, verbose=0, n_jobs=None, class_weight=None):
-        self._fit_intercept = fit_intercept
-        self._intercept_scaling = intercept_scaling
-        self._multi_class = multi_class
-        self._verbose = verbose
-        self._n_jobs = n_jobs
-        self._class_weight = class_weight
+    def __init__(self):
+        self._bk_model = Backend.LogisticRegression()
 
     def _validate_params(self):
         pass
@@ -70,4 +69,19 @@ class LogisticRegression(BaseLinearRegression):
             Returns the probability.
 
         """
+        pass
+
+
+class PoissionRegression(BaseLinearRegression):
+
+    def __init__(self):
+        self._bk_model = Backend.PoissionRegression()
+
+    def _validate_params(self):
+        pass
+
+    def fit(self, X, y):
+        pass
+
+    def predict(self, X):
         pass
