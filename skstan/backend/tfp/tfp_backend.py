@@ -8,16 +8,13 @@ from skstan.backend.tfp import TFPPoissonRegression
 class TFPBackend:
     """
     TensorFlow backend class.
-    This class provides model clases which are implemented using TensorFlow Probability.
+    This class provides model clases which are implemented using TensorFlow
+    Probability.
     """
 
     LinearRegression = TFPLinearRegression
     LogisitcRegression = TFPLogisticRegression
     PoissionRegression = TFPPoissonRegression
-
-    def __init__(self):
-        # print backend name to check .
-        print("tfp backend.")
 
 
 _tfd = tfp.distributions

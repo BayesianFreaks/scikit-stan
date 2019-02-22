@@ -1,6 +1,3 @@
-from abc import ABCMeta
-from abc import abstractmethod
-
 import tensorflow as tf
 from tensorflow_probability import distributions as tfd
 from tensorflow_probability import edward2 as ed
@@ -8,20 +5,7 @@ from tensorflow_probability import edward2 as ed
 from skstan.backend.tfp import BaseTFPModel
 
 
-class BaseTFPLinearRegression(BaseTFPModel, metaclass=ABCMeta):
-    """
-    Abstract base class for Linear regression using TensorFlow Probability.
-    """
-
-    def log_join_fn(self):
-        return ed.make_log_joint_fn(self.posterior_dist)
-
-    @abstractmethod
-    def posterior_dist(self, features):
-        pass
-
-
-class TFPLinearRegression(BaseTFPLinearRegression):
+class TFPLinearRegression(BaseTFPModel):
     """
     Linear regression implementation using TensorFlow Probability.
     """
@@ -43,7 +27,7 @@ class TFPLinearRegression(BaseTFPLinearRegression):
         pass
 
 
-class TFPLogisticRegression(BaseTFPLinearRegression):
+class TFPLogisticRegression(BaseTFPModel):
     """
     Logistic regression implementation using TensorFlow Probability.
     """
@@ -75,7 +59,7 @@ class TFPLogisticRegression(BaseTFPLinearRegression):
         return outcomes
 
 
-class TFPPoissonRegression(BaseTFPLinearRegression):
+class TFPPoissonRegression(BaseTFPModel):
     """
     Poisson regression implementation using TensorFlow Probability.
     """

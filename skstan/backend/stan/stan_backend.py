@@ -18,10 +18,6 @@ class StanBackend:
     LogisticRegression = StanLogisticRegression
     PoissionRegression = StanPoissonRegression
 
-    def __init__(self):
-        # print backend name to check .
-        print('stan backend.')
-
 
 class StanModelLoader:
     """

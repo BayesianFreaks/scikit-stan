@@ -1,25 +1,7 @@
-from abc import ABCMeta
-from abc import abstractmethod
-
 from skstan.backend.stan import BaseStanModel
 
 
-class BaseStanLinearRegression(BaseStanModel, metaclass=ABCMeta):
-    """
-    Abstract base class for Linear regression using Stan.
-
-    """
-
-    @abstractmethod
-    def fit(self, X, y):
-        pass
-
-    @abstractmethod
-    def predict(self, X):
-        pass
-
-
-class StanLinearRegression(BaseStanLinearRegression):
+class StanLinearRegression(BaseStanModel):
     """
     Linear regression.
 
@@ -68,7 +50,7 @@ class StanLinearRegression(BaseStanLinearRegression):
         return self.__class__.MODEL_FILE_NAME
 
 
-class StanLogisticRegression(BaseStanLinearRegression):
+class StanLogisticRegression(BaseStanModel):
     """
     Logistic regression.
 
@@ -118,7 +100,7 @@ class StanLogisticRegression(BaseStanLinearRegression):
         return self.__class__.MODEL_FILE_NAME
 
 
-class StanPoissonRegression(BaseStanLinearRegression):
+class StanPoissonRegression(BaseStanModel):
     """
     Poisson regression.
     """
