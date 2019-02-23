@@ -10,6 +10,7 @@ class StanBackend:
 
     """
 
+    # Linear Regression.
     LinearRegression = StanLinearRegression
     LogisticRegression = StanLogisticRegression
     PoissonRegression = StanPoissonRegression
