@@ -75,7 +75,7 @@ class LogisticRegression(BaseLinearRegression):
 class PoissionRegression(BaseLinearRegression):
 
     def __init__(self):
-        self._bk_model = Backend.PoissionRegression()
+        self._bk_model = Backend.PoissonRegression()
 
     def _validate_params(self):
         pass

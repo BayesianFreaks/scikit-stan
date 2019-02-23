@@ -1,4 +1,4 @@
-from skstan.backend.stan import BaseStanModel
+from skstan.backend.stan.model.base_model import BaseStanModel
 
 
 class StanLinearRegression(BaseStanModel):

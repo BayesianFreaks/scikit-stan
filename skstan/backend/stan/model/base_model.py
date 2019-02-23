@@ -1,7 +1,7 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
-from skstan.backend.stan import StanModelLoader
+from skstan.backend.stan.model.loader import StanModelLoader
 
 
 class BaseStanModel(metaclass=ABCMeta):

@@ -1,8 +1,8 @@
 import tensorflow_probability as tfp
 
-from skstan.backend.tfp import TFPLinearRegression
-from skstan.backend.tfp import TFPLogisticRegression
-from skstan.backend.tfp import TFPPoissonRegression
+from skstan.backend.tfp.model import TFPLinearRegression
+from skstan.backend.tfp.model import TFPLogisticRegression
+from skstan.backend.tfp.model import TFPPoissonRegression
 
 
 class TFPBackend:

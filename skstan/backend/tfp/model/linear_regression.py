@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow_probability import distributions as tfd
 from tensorflow_probability import edward2 as ed
 
-from skstan.backend.tfp import BaseTFPModel
+from skstan.backend.tfp.model.base_model import BaseTFPModel
 
 
 class TFPLinearRegression(BaseTFPModel):
