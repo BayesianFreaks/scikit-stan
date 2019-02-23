@@ -7,7 +7,7 @@ class StanLinearRegression(BaseStanModel):
 
     """
 
-    MODEL_FILE_NAME = 'linear_regression.pkl'
+    _MODEL_FILE_NAME = 'linear_regression.pkl'
 
     def __init__(self):
         self._model = self.load_model()
@@ -47,7 +47,7 @@ class StanLinearRegression(BaseStanModel):
         str
             the name of the pickled model file.
         """
-        return self.__class__.MODEL_FILE_NAME
+        return self.__class__._MODEL_FILE_NAME
 
 
 class StanLogisticRegression(BaseStanModel):
@@ -56,7 +56,7 @@ class StanLogisticRegression(BaseStanModel):
 
     """
 
-    MODEL_FILE_NAME = 'logistic_regression.pkl'
+    _MODEL_FILE_NAME = 'logistic_regression.pkl'
 
     def __init__(self):
         self._model = self.load_model()
@@ -97,7 +97,7 @@ class StanLogisticRegression(BaseStanModel):
         str
             the name of the pickled model file.
         """
-        return self.__class__.MODEL_FILE_NAME
+        return self.__class__._MODEL_FILE_NAME
 
 
 class StanPoissonRegression(BaseStanModel):
@@ -105,7 +105,7 @@ class StanPoissonRegression(BaseStanModel):
     Poisson regression.
     """
 
-    MODEL_FILE_NAME = 'poisson_regression.pkl'
+    _MODEL_FILE_NAME = 'poisson_regression.pkl'
 
     def __init__(self):
         self._model = self.load_model()
@@ -145,4 +145,4 @@ class StanPoissonRegression(BaseStanModel):
         str
             the name of the pickled model file.
         """
-        return self.__class__.MODEL_FILE_NAME
+        return self.__class__._MODEL_FILE_NAME
