@@ -2,10 +2,7 @@ import json
 import os
 import sys
 
-from skstan.backend.base_backend import BaseBackend
-
 __all__ = [
-    'BaseBackend',
 ]
 
 TMP_DIR = '/tmp'
@@ -81,8 +78,9 @@ def get_current_backend():
     Return the name of the current backend as string.
 
     Returns
-        the name of the backend (stan or tfp).
     -------
+    str
+        the name of the backend (stan or tfp).
 
     """
     return _CURRENT_BACKEND
