@@ -1,8 +1,9 @@
 import tensorflow as tf
-from tensorflow_probability import distributions as tfd
-from tensorflow_probability import edward2 as ed
+import tensorflow_probability as tfp
 
 from skstan.backend.tfp.model.base_model import BaseTFPModel
+
+ed = tfp.edward2
 
 
 class TFPLinearRegression(BaseTFPModel):
@@ -11,6 +12,9 @@ class TFPLinearRegression(BaseTFPModel):
     """
 
     def __init__(self):
+        pass
+
+    def _validate_params(self):
         pass
 
     def posterior_dist(self, features):
@@ -32,13 +36,14 @@ class TFPLogisticRegression(BaseTFPModel):
     Logistic regression implementation using TensorFlow Probability.
     """
 
-    def __init__(self):
+    def __init__(self, fit_intercept=True):
+        self._fit_intercept = fit_intercept
+        self._validate_params()
+
+    def _validate_params(self):
         pass
 
-    def set_params(self):
-        pass
-
-    def posterior_dist(self, features) -> tfd.Distribution:
+    def posterior_dist(self, features):
         """
 
         Parameters
@@ -49,14 +54,24 @@ class TFPLogisticRegression(BaseTFPModel):
         -------
 
         """
-        coeffs = ed.Normal(loc=0.0,
+        coeffs = ed.Normal(loc=tf.zeros(features.shape[1]),
                            scale=1.0,
-                           sample_shape=features.shape[1],
                            name='coeffs')
-        outcomes = ed.Bernoulli(
-            logits=tf.tensordot(features, coeffs, [[1], [0]]),
-            name='outcomes')
-        return outcomes
+
+        logits = tf.tensordot(features, coeffs, [[1], [0]])
+        if self._fit_intercept:
+            bias = ed.Normal(loc=0.0, scale=1.0, name='bias')
+            logits = logits + bias
+        target_dist = ed.Bernoulli(logits=logits)
+        return target_dist
+
+    def _set_prior_to_posterior_mean(self):
+        name = kwargs.get("name")
+        if name == "w":
+            return posterior_w.distribution.mean()
+        elif name == "b":
+            return posterior_b.distribution.mean()
+        return f(*args, **kwargs)
 
 
 class TFPPoissonRegression(BaseTFPModel):
@@ -65,6 +80,9 @@ class TFPPoissonRegression(BaseTFPModel):
     """
 
     def __init__(self):
+        pass
+
+    def _validate_params(self):
         pass
 
     def posterior_dist(self, features):

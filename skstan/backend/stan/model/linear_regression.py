@@ -1,9 +1,48 @@
-from skstan.backend.stan.model.base_model import BaseStanModel
+from abc import ABCMeta
+
+from skstan.backend.stan.model.base_model import StanModelLoadMixin
 
 
-class StanLinearRegression(BaseStanModel):
+class BaseLinearRegressionModel(metaclass=ABCMeta):
+
+    def fit(self, X, y):
+        """
+
+        Parameters
+        ----------
+        X: array-kile, shape (n_samples, n_features)
+
+        y: array, shape (n_samples,)
+
+
+        Returns
+        -------
+
+        """
+
+        pass
+
+    def predict(self, X):
+        """
+
+        Parameters
+        ----------
+        X: array-like
+
+
+        Returns
+        -------
+        y_pred: array, shape (n_samples,)
+            class labels for sample in X.
+
+        """
+
+        pass
+
+
+class StanLinearRegression(BaseLinearRegressionModel, StanModelLoadMixin):
     """
-    Linear regression.
+    Linear regression using Stan.
 
     """
 
@@ -12,31 +51,7 @@ class StanLinearRegression(BaseStanModel):
     def __init__(self):
         self._model = self.load_model()
 
-    def fit(self, X, y):
-        """
-
-        Parameters
-        ----------
-        X
-        y
-
-        Returns
-        -------
-
-        """
-        pass
-
-    def predict(self, X):
-        """
-
-        Parameters
-        ----------
-        X
-
-        Returns
-        -------
-
-        """
+    def _validate_params(self):
         pass
 
     def get_model_file_name(self):
@@ -50,9 +65,9 @@ class StanLinearRegression(BaseStanModel):
         return self.__class__._MODEL_FILE_NAME
 
 
-class StanLogisticRegression(BaseStanModel):
+class StanLogisticRegression(BaseLinearRegressionModel, StanModelLoadMixin):
     """
-    Logistic regression.
+    Logistic regression using Stan.
 
     """
 
@@ -61,32 +76,7 @@ class StanLogisticRegression(BaseStanModel):
     def __init__(self):
         self._model = self.load_model()
 
-    def fit(self, X, y):
-        """
-
-        Parameters
-        ----------
-        X
-        y
-
-        Returns
-        -------
-        str
-            the name of the pickled model file.
-        """
-        pass
-
-    def predict(self, X):
-        """
-
-        Parameters
-        ----------
-        X
-
-        Returns
-        -------
-
-        """
+    def _validate_params(self):
         pass
 
     def get_model_file_name(self):
@@ -100,9 +90,9 @@ class StanLogisticRegression(BaseStanModel):
         return self.__class__._MODEL_FILE_NAME
 
 
-class StanPoissonRegression(BaseStanModel):
+class StanPoissonRegression(BaseLinearRegressionModel, StanModelLoadMixin):
     """
-    Poisson regression.
+    Poisson regression using Stan.
     """
 
     _MODEL_FILE_NAME = 'poisson_regression.pkl'
@@ -110,31 +100,7 @@ class StanPoissonRegression(BaseStanModel):
     def __init__(self):
         self._model = self.load_model()
 
-    def fit(self, X, y):
-        """
-
-        Parameters
-        ----------
-        X
-        y
-
-        Returns
-        -------
-
-        """
-        pass
-
-    def predict(self, X):
-        """
-
-        Parameters
-        ----------
-        X
-
-        Returns
-        -------
-
-        """
+    def _validate_params(self):
         pass
 
     def get_model_file_name(self):
