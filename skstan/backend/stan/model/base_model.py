@@ -1,23 +1,36 @@
-from abc import ABCMeta
-from abc import abstractmethod
+import os
+import pickle
 
-from skstan.backend.stan.model.loader import StanModelLoader
+from skstan import PROJECT_ROOT
 
 
-class BaseStanModel(metaclass=ABCMeta):
+class StanModelLoadMixin:
+    """
+    Stan model loader class.
 
-    @abstractmethod
-    def get_model_file_name(self):
-        pass
+    This class provides the methods to load a compiled stan model.
+
+    """
 
     def load_model(self):
         """
+        Load a pickled stan model specified by the name which
+        `get_model_file_name` method return and return `StanModel` object.
+        Parameters
+        ----------
+
         Returns
         -------
         StanModel
-            A StanModel object.
+            A StanModel object specified by model_name argument.
         """
 
-        loader = StanModelLoader()
         model_file_name = self.get_model_file_name()
-        return loader.load_stan_model(model_file_name)
+        pkl_base_dir = self._base_dir()
+        pkl_file_path = os.path.join(pkl_base_dir, model_file_name)
+        with open(pkl_file_path, 'rb') as f:
+            return pickle.load(f)
+
+    @staticmethod
+    def _base_dir():
+        return os.path.join(PROJECT_ROOT, 'stan_model')

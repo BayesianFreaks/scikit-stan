@@ -1,7 +1,7 @@
 from skstan.backend.stan.model import StanLinearRegression
 from skstan.backend.stan.model import StanLogisticRegression
 from skstan.backend.stan.model import StanPoissonRegression
-from skstan.backend.stan.model.base_model import BaseStanModel
+from skstan.backend.stan.model.base_model import StanModelLoadMixin
 
 
 class TestStanLinearRegression:
@@ -12,7 +12,7 @@ class TestStanLinearRegression:
         def mock_load_model(dummy):
             return None
 
-        monkeypatch.setattr(BaseStanModel,
+        monkeypatch.setattr(StanModelLoadMixin,
                             'load_model', mock_load_model)
         slr = StanLinearRegression()
         actual = slr.get_model_file_name()
@@ -27,7 +27,7 @@ class TestStanLogisticRegression:
         def mock_load_model(dummy):
             return None
 
-        monkeypatch.setattr(BaseStanModel,
+        monkeypatch.setattr(StanModelLoadMixin,
                             'load_model', mock_load_model)
         slr = StanLogisticRegression()
         actual = slr.get_model_file_name()
@@ -42,7 +42,7 @@ class TestStanPoissionRegression:
         def mock_load_model(dummy):
             return None
 
-        monkeypatch.setattr(BaseStanModel,
+        monkeypatch.setattr(StanModelLoadMixin,
                             'load_model', mock_load_model)
         spr = StanPoissonRegression()
         actual = spr.get_model_file_name()
