@@ -8,19 +8,62 @@ class LinearRegression(BaseLinearRegression):
 
     Parameters
     ----------
+    chains: int
+        the number of chains.
+    shrinkage: int (default=10)
+        the standard deviation for non-information prior distribution.
+        Usually, the deviation is very large.
 
     """
 
-    def __init__(self):
-        self._bk_model = Backend.LinearRegression()
+    def __init__(self, chains: int, shrinkage: int = 10):
+        self._backend_model = Backend.LinearRegression()
+        self._validate_params(chains, shrinkage)
 
-    def _validate_params(self):
-        pass
+    @staticmethod
+    def _validate_params(chains: int, shrinkage: int):
+        if chains < 0:
+            raise ValueError('chains must be positive.')
+        if shrinkage < 0:
+            raise ValueError('shrinkage must be positive.')
 
     def fit(self, X, y):
-        pass
+        """
+
+        Parameters
+        ----------
+        X: {array-like, sparse matrix}
+            Training vector.
+
+        y: array-like
+            Target vector relative to X.
+
+        Returns
+        -------
+
+        """
+        self._backend_model.fit(X, y)
+        return self
 
     def predict(self, X):
+        """
+
+        Parameters
+        ----------
+        X: {array-like, sparse matrix}
+
+        Returns
+        -------
+        T: array-like
+            Returns the probability.
+
+        """
+        return self._backend_model.predict(X)
+
+    def predict_proba(self, X):
+        pass
+
+    def predict_log_proba(self):
         pass
 
 
@@ -34,7 +77,7 @@ class LogisticRegression(BaseLinearRegression):
     """
 
     def __init__(self):
-        self._bk_model = Backend.LogisticRegression()
+        self._backend_model = Backend.LogisticRegression()
 
     def _validate_params(self):
         pass
@@ -54,7 +97,8 @@ class LogisticRegression(BaseLinearRegression):
         -------
 
         """
-        pass
+        self._backend_model.fit(X, y)
+        return self
 
     def predict(self, X):
         """
@@ -69,19 +113,46 @@ class LogisticRegression(BaseLinearRegression):
             Returns the probability.
 
         """
-        pass
+        return self._backend_model.predict(X)
 
 
-class PoissionRegression(BaseLinearRegression):
+class PoissonRegression(BaseLinearRegression):
 
     def __init__(self):
-        self._bk_model = Backend.PoissonRegression()
+        self._backend_model = Backend.PoissonRegression()
 
     def _validate_params(self):
         pass
 
     def fit(self, X, y):
-        pass
+        """
+
+        Parameters
+        ----------
+        X: {array-like, sparse matrix}
+            Training vector.
+
+        y: array-like
+            Target vector relative to X.
+
+        Returns
+        -------
+
+        """
+        self._backend_model.fit(X, y)
+        return self
 
     def predict(self, X):
-        pass
+        """
+
+        Parameters
+        ----------
+        X: {array-like, sparse matrix}
+
+        Returns
+        -------
+        T: array-like
+            Returns the probability.
+
+        """
+        return self._backend_model.predict(X)

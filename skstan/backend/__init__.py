@@ -14,7 +14,7 @@ SKSTAN_JSON = 'skstan.json'
 DEFAULT_BACKGROUND = 'stan'
 
 
-def _read_skstan_json(skstan_dir: str):
+def _read_skstan_json(skstan_dir: str) -> str:
     config_file_path = os.path.join(skstan_dir, SKSTAN_JSON)
     if os.path.exists(config_file_path):
         with open(config_file_path) as f:
@@ -73,7 +73,7 @@ else:
         'Failed to import a backend class. Backend: {}'.format(_CURRENT_BACKEND))
 
 
-def get_current_backend():
+def get_current_backend() -> str:
     """
     Return the name of the current backend as string.
 
