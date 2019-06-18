@@ -6,11 +6,11 @@ from skstan.backend.tfp.model import TFPPoissonRegression
 class TFPBackend:
     """
     TensorFlow backend class.
-    This class provides model clases which are implemented using TensorFlow
+    This class provides model classes which are implemented using TensorFlow
     Probability.
     """
 
     # Linear Regression.
     LinearRegression = TFPLinearRegression
-    LogisitcRegression = TFPLogisticRegression
-    PoissionRegression = TFPPoissonRegression
+    LogisticRegression = TFPLogisticRegression
+    PoissonRegression = TFPPoissonRegression

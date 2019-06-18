@@ -11,8 +11,9 @@ class TFPLinearRegression(BaseTFPModel):
     Linear regression implementation using TensorFlow Probability.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, shrinkage, chains):
+        self._shrinkage = shrinkage
+        self._chains = chains
 
     def _validate_params(self):
         pass
@@ -54,24 +55,26 @@ class TFPLogisticRegression(BaseTFPModel):
         -------
 
         """
-        coeffs = ed.Normal(loc=tf.zeros(features.shape[1]),
-                           scale=1.0,
-                           name='coeffs')
-
-        logits = tf.tensordot(features, coeffs, [[1], [0]])
-        if self._fit_intercept:
-            bias = ed.Normal(loc=0.0, scale=1.0, name='bias')
-            logits = logits + bias
-        target_dist = ed.Bernoulli(logits=logits)
-        return target_dist
+        pass
+        # coeffs = ed.Normal(loc=tf.zeros(features.shape[1]),
+        #                    scale=1.0,
+        #                    name='coeffs')
+        #
+        # logits = tf.tensordot(features, coeffs, [[1], [0]])
+        # if self._fit_intercept:
+        #     bias = ed.Normal(loc=0.0, scale=1.0, name='bias')
+        #     logits = logits + bias
+        # target_dist = ed.Bernoulli(logits=logits)
+        # return target_dist
 
     def _set_prior_to_posterior_mean(self):
-        name = kwargs.get("name")
-        if name == "w":
-            return posterior_w.distribution.mean()
-        elif name == "b":
-            return posterior_b.distribution.mean()
-        return f(*args, **kwargs)
+        pass
+        # name = kwargs.get("name")
+        # if name == "w":
+        #     return posterior_w.distribution.mean()
+        # elif name == "b":
+        #     return posterior_b.distribution.mean()
+        # return f(*args, **kwargs)
 
 
 class TFPPoissonRegression(BaseTFPModel):
