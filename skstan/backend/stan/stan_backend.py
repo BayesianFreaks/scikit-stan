@@ -6,9 +6,22 @@ from skstan.backend.stan.model import StanPoissonRegression
 class StanBackend:
     """
     Stan backend class.
-    This class provides model classes which are implemented using Stan.
+    This class provides model classes which are implemented by using Stan.
 
     """
+
+    _BACKEND = 'stan'
+
+    @classmethod
+    def name(cls):
+        """
+        Returns
+        -------
+        str:
+            Current backend name.
+
+        """
+        return cls._BACKEND
 
     # Linear Regression.
     LinearRegression = StanLinearRegression

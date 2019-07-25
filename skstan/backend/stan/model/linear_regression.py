@@ -1,7 +1,9 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
+from abc import abstractmethod
 
 from skstan.backend.stan.model.base_model import StanClassifierMixin
 from skstan.backend.stan.model.base_model import StanModelLoadMixin
+from skstan.params import StanLinearRegressionParams
 
 
 class BaseLinearRegressionModel(metaclass=ABCMeta):
@@ -23,26 +25,39 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
     """
     Linear regression using Stan.
 
+    Parameters
+    ----------
+    chains: int
+        The number of chains.
+    warmup: int
+        Markov chains may take some time before the chain settles into the
+        equilibrium distribution. The samples generated during the initial
+        phase are discarded. The warmup value is the number of steps to be
+        discarded.
+    shrinkage: int (default=10)
+        The standard deviation for non-information prior distribution.
+        Usually, the deviation value is very large.
+    n_itr: int
+        The number of iteration.
+    n_jobs: int (default=-1)
+        The number of jobs to run in parallel.
+    algorithm: str (default=None)
+       the algorithm name to be used in Stan.
+    verbose: bool
+
     """
 
     _MODEL_FILE_NAME = 'linear_regression.pkl'
-    _PARAM_NAMES = [
-        'alpha',
-        'beta'
-    ]
+    _PARAM_NAMES = ['alpha', 'beta']
 
-    def __init__(self, chains: int, warmup: int, shrinkage: int, n_jobs: int,
-                 n_itr: int, algorithm: str = 'NUTS', verbose: bool = False):
-        self._chains = chains
-        self._warmup = warmup
-        self._shrinkage = shrinkage
-        self._n_jobs = n_jobs
-        self._n_itr = n_itr
+    def __init__(self, params: StanLinearRegressionParams):
+        self._params = params
+
+        if params.algorithm is None:
+            algorithm = 'NUTS'
         self._algorithm = algorithm
-        self._verbose = verbose
 
         self._stanfit = None
-
         self._stan_model = self.load_model()
 
     def fit(self, X, y):
@@ -69,13 +84,14 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
 
         if self._stan_model is None:
             raise ValueError('stan model is not loaded.')
-        self._stanfit = self._stan_model.sampling(data=data,
-                                                  iter=self._n_itr,
-                                                  chains=self._chains,
-                                                  n_jobs=self._n_jobs,
-                                                  warmup=self._warmup,
-                                                  algorithm=self._algorithm,
-                                                  verbose=self._verbose)
+        self._stanfit = self._stan_model.sampling(
+            data=data,
+            iter=self.params.n_itr,
+            chains=self._params.chains,
+            n_jobs=self._params.n_jobs,
+            warmup=self._params.warmup,
+            algorithm=self._params.algorithm,
+            verbose=self._params.verbose)
         return self
 
     def get_model_file_name(self):
@@ -102,13 +118,16 @@ class StanLogisticRegression(BaseLinearRegressionModel, StanClassifierMixin,
     """
 
     _MODEL_FILE_NAME = 'logistic_regression.pkl'
-    _PARAM_NAMES = [
-        'alpha',
-        'beta'
-    ]
+    _PARAM_NAMES = ['alpha', 'beta']
 
-    def __init__(self, chains: int, warmup: int, shrinkage: int, n_jobs: int,
-                 n_itr: int, algorithm: str = 'NUTS', verbose: bool = False):
+    def __init__(self,
+                 chains: int,
+                 warmup: int,
+                 shrinkage: int,
+                 n_jobs: int,
+                 n_itr: int,
+                 algorithm: str = 'NUTS',
+                 verbose: bool = False):
         self._stan_model = self.load_model()
 
     def _validate_params(self):
@@ -135,13 +154,16 @@ class StanPoissonRegression(BaseLinearRegressionModel, StanClassifierMixin,
     """
 
     _MODEL_FILE_NAME = 'poisson_regression.pkl'
-    _PARAM_NAMES = [
-        'alpha',
-        'beta'
-    ]
+    _PARAM_NAMES = ['alpha', 'beta']
 
-    def __init__(self, chains: int, warmup: int, shrinkage: int, n_jobs: int,
-                 n_itr: int, algorithm: str = 'NUTS', verbose: bool = False):
+    def __init__(self,
+                 chains: int,
+                 warmup: int,
+                 shrinkage: int,
+                 n_jobs: int,
+                 n_itr: int,
+                 algorithm: str = 'NUTS',
+                 verbose: bool = False):
         self._stan_model = self.load_model()
 
     def _validate_params(self):
