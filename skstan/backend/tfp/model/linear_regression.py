@@ -11,7 +11,8 @@ class TFPLinearRegression(BaseTFPModel):
     Linear regression implementation using TensorFlow Probability.
     """
 
-    def __init__(self, shrinkage, chains):
+    def __init__(self, chains: int, warmup: int, shrinkage: int, n_jobs: int,
+                 n_itr: int, algorithm: str = 'NUTS', verbose: bool = False):
         self._shrinkage = shrinkage
         self._chains = chains
 

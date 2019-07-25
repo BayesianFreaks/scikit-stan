@@ -1,9 +1,10 @@
-from abc import ABCMeta
+from skstan.model import BaseModel
 
 
-class BaseEstimator(metaclass=ABCMeta):
+class BaseEstimator(BaseModel):
     """
     Abstract base class for all estimators in scikit-stan.
+
     """
 
     def get_params(self, deep=True):

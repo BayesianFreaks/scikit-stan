@@ -3,6 +3,8 @@ import os
 import sys
 
 __all__ = [
+    'get_current_backend',
+    'Backend'
 ]
 
 TMP_DIR = '/tmp'
@@ -70,7 +72,8 @@ elif _CURRENT_BACKEND == 'tfp':
     from .tfp import Backend
 else:
     raise ValueError(
-        'Failed to import a backend class. Backend: {}'.format(_CURRENT_BACKEND))
+        'Failed to import a backend class. Backend: {}'.format(
+            _CURRENT_BACKEND))
 
 
 def get_current_backend() -> str:
