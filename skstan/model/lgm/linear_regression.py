@@ -2,8 +2,6 @@ from typing import Sequence
 
 from skstan.backend import Backend
 from skstan.backend import get_current_backend
-from skstan.backend.stan import StanBackend
-from skstan.backend.tfp import TFPBackend
 from skstan.model.lgm import BaseLinearRegression
 from skstan.params import StanLinearRegressionParams
 from skstan.params import TFPLinearRegressionParams
@@ -53,13 +51,18 @@ class LinearRegression(BaseLinearRegression):
             verbose=verbose,
             shrinkage=shrinkage
         )
-        self._backend_model = Backend.LinearRegression(params)
+        self._backend_model = self._create_backend_model(params)
+
+    @staticmethod
+    def _create_backend_model(params):
+        # TODO: create backend model in constructor.
+        return Backend.LinearRegression(params)
 
     @staticmethod
     def _pack_model_params(chains: int, warmup: int, n_itr: int, n_jobs: int,
                            algorithm: str, shrinkage: float, verbose: bool):
         current_backend = get_current_backend()
-        if current_backend == StanBackend.name:
+        if current_backend == 'stan':
             return StanLinearRegressionParams(
                 chains=chains,
                 warmup=warmup,
@@ -69,7 +72,7 @@ class LinearRegression(BaseLinearRegression):
                 verbose=verbose,
                 shrinkage=shrinkage
             )
-        elif current_backend == TFPBackend.name:
+        elif current_backend == 'tfp':
             # TODO: set parameters.
             return TFPLinearRegressionParams(verbose=verbose)
         else:
@@ -132,7 +135,8 @@ class LogisticRegression(BaseLinearRegression):
     """
 
     def __init__(self):
-        self._backend_model = Backend.LogisticRegression()
+        pass
+        # self._backend_model = Backend.LogisticRegression()
 
     def _validate_params(self):
         pass
@@ -180,9 +184,9 @@ class PoissonRegression(BaseLinearRegression):
 
     """
 
-    def __init__(self, params: ModelParams):
-        super().__init__(params)
-        self._backend_model = Backend.PoissonRegression()
+    def __init__(self):
+        pass
+        # self._backend_model = Backend.PoissonRegression()
 
     def _validate_params(self):
         pass

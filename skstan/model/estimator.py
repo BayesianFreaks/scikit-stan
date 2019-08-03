@@ -1,7 +1,7 @@
-from skstan.model import BaseModel
+from abc import ABCMeta
 
 
-class BaseEstimator(BaseModel):
+class BaseEstimator(metaclass=ABCMeta):
     """
     Abstract base class for all estimators in scikit-stan.
 

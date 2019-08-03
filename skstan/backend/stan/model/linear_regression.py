@@ -55,7 +55,7 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
 
         if params.algorithm is None:
             algorithm = 'NUTS'
-        self._algorithm = algorithm
+            self._algorithm = algorithm
 
         self._stanfit = None
         self._stan_model = self.load_model()
@@ -86,11 +86,11 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
             raise ValueError('stan model is not loaded.')
         self._stanfit = self._stan_model.sampling(
             data=data,
-            iter=self.params.n_itr,
+            iter=self._params.n_itr,
             chains=self._params.chains,
             n_jobs=self._params.n_jobs,
             warmup=self._params.warmup,
-            algorithm=self._params.algorithm,
+            algorithm=self._algorithm,
             verbose=self._params.verbose)
         return self
 
@@ -128,6 +128,7 @@ class StanLogisticRegression(BaseLinearRegressionModel, StanClassifierMixin,
                  n_itr: int,
                  algorithm: str = 'NUTS',
                  verbose: bool = False):
+        # TODO: use parameter class.
         self._stan_model = self.load_model()
 
     def _validate_params(self):
@@ -164,6 +165,7 @@ class StanPoissonRegression(BaseLinearRegressionModel, StanClassifierMixin,
                  n_itr: int,
                  algorithm: str = 'NUTS',
                  verbose: bool = False):
+        # TODO: use parameter class.
         self._stan_model = self.load_model()
 
     def _validate_params(self):
