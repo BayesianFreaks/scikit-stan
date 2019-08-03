@@ -12,7 +12,7 @@ class BaseLinearRegressionModel(metaclass=ABCMeta):
     """
 
     @abstractmethod
-    def get_model_file_name(self):
+    def get_model_file_path(self):
         pass
 
     @abstractmethod
@@ -47,7 +47,7 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
 
     """
 
-    _MODEL_FILE_NAME = 'linear_regression.pkl'
+    _MODEL_FILE_PATH = 'regression/linear_regression.pkl'
     _PARAM_NAMES = ['alpha', 'beta']
 
     def __init__(self, params: StanLinearRegressionParams):
@@ -94,7 +94,7 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
             verbose=self._params.verbose)
         return self
 
-    def get_model_file_name(self):
+    def get_model_file_path(self):
         """
 
         Returns
@@ -102,7 +102,7 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
         str
             the name of the pickled model file.
         """
-        return self.__class__._MODEL_FILE_NAME
+        return self.__class__._MODEL_FILE_PATH
 
     def calc_distribution(self, X, params: dict):
         alpha = params['alpha']
@@ -117,7 +117,7 @@ class StanLogisticRegression(BaseLinearRegressionModel, StanClassifierMixin,
 
     """
 
-    _MODEL_FILE_NAME = 'logistic_regression.pkl'
+    _MODEL_FILE_PATH = 'regression/logistic_regression.pkl'
     _PARAM_NAMES = ['alpha', 'beta']
 
     def __init__(self,
@@ -134,7 +134,7 @@ class StanLogisticRegression(BaseLinearRegressionModel, StanClassifierMixin,
     def _validate_params(self):
         pass
 
-    def get_model_file_name(self):
+    def get_model_file_path(self):
         """
 
         Returns
@@ -142,7 +142,7 @@ class StanLogisticRegression(BaseLinearRegressionModel, StanClassifierMixin,
         str
             the name of the pickled model file.
         """
-        return self.__class__._MODEL_FILE_NAME
+        return self.__class__._MODEL_FILE_PATH
 
     def calc_distribution(self, X, params: dict):
         pass
@@ -154,7 +154,7 @@ class StanPoissonRegression(BaseLinearRegressionModel, StanClassifierMixin,
     Poisson regression using Stan.
     """
 
-    _MODEL_FILE_NAME = 'poisson_regression.pkl'
+    _MODEL_FILE_PATH = 'regression/poisson_regression.pkl'
     _PARAM_NAMES = ['alpha', 'beta']
 
     def __init__(self,
@@ -171,7 +171,7 @@ class StanPoissonRegression(BaseLinearRegressionModel, StanClassifierMixin,
     def _validate_params(self):
         pass
 
-    def get_model_file_name(self):
+    def get_model_file_path(self):
         """
 
         Returns
@@ -179,7 +179,7 @@ class StanPoissonRegression(BaseLinearRegressionModel, StanClassifierMixin,
         str
             the name of the pickled model file.
         """
-        return self.__class__._MODEL_FILE_NAME
+        return self.__class__._MODEL_FILE_PATH
 
     def calc_distribution(self, X, params: dict):
         pass
