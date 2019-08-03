@@ -1,0 +1,3 @@
+
+class BaseTFPModel:
+    pass

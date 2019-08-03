@@ -1,6 +1,8 @@
 # scikit-stan
 
 [![Build Status](https://travis-ci.org/BayesianFreaks/scikit-stan.svg?branch=master)](https://travis-ci.org/BayesianFreaks/scikit-stan) [![codecov](https://codecov.io/gh/BayesianFreaks/scikit-stan/branch/master/graph/badge.svg)](https://codecov.io/gh/BayesianFreaks/scikit-stan)
+[![MIT license](https://img.shields.io/badge/License-MIT-green.svg)](https://lbesson.mit-license.org/)
+[![](https://img.shields.io/badge/python-3.5+-blue.svg)](https://www.python.org/downloads/release/python-350/)
 
 ## What is scikit-stan
 `scikit-stan` will enable you to use various bayesian models based on 
@@ -89,7 +91,7 @@ So let's check the histgram of first row with `pandas.Series`.
 import pandas as pd
 pd.Series(yp_dist[0]).hist(bins=20)
 ```
-![Histgram of first row](image/hist.png)
+![Histgram of first row](https://dfh6g0ekreo71.cloudfront.net/images/chart/hist.png) <!-- change this url to a appropriate one after setting domain. -->
 
 
 If you need a median of samples, you can get it with just `predict` method

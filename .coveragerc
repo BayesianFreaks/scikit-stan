@@ -4,5 +4,5 @@ source = skstan
 
 [report]
 omit =
-    test/*
+    tests/*
     setup.py
