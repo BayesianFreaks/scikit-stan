@@ -2,6 +2,7 @@ from skstan.backend.stan.model import StanLinearRegression
 from skstan.backend.stan.model import StanLogisticRegression
 from skstan.backend.stan.model import StanPoissonRegression
 from skstan.backend.stan.model.base_model import StanModelLoadMixin
+from skstan.params import StanLinearRegressionParams
 
 
 class TestStanLinearRegression:
@@ -14,8 +15,11 @@ class TestStanLinearRegression:
 
         monkeypatch.setattr(StanModelLoadMixin,
                             'load_model', mock_load_model)
-        slr = StanLinearRegression(chains=3, warmup=1000, shrinkage=10,
-                                   n_jobs=1, n_itr=5000)
+        params = StanLinearRegressionParams(
+            chains=3, warmup=1000, n_itr=5000, n_jobs=1, algorithm='NUTS',
+            verbose=False, shrinkage=10,
+        )
+        slr = StanLinearRegression(params)
         actual = slr.get_model_file_name()
         expected = 'linear_regression.pkl'
         assert actual == expected

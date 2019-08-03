@@ -1,42 +1,26 @@
-from typing import Sequence
-
 import numpy as np
 
-from skstan.model.lgm import LinearRegression
+from skstan.model.lgm.linear_regression import LinearRegression
 
 
 class TestLinearRegression:
-    def test_fit(self, mocker):
+    def test_fit(self, mocker, monkeypatch):
         # Test that logistic regression is trained by using fit method.
 
-        class DumyBackendModel:
-            def __init__(self,
-                         chains: int,
-                         warmup: int,
-                         shrinkage: int,
-                         n_jobs: int,
-                         n_itr: int,
-                         algorithm: str = 'NUTS',
-                         verbose: bool = False):
-                pass
+        MockBackendModel = mocker.Mock()
+        mock_model = MockBackendModel()
+        MockBackendModel.fit.return_value = None
 
-            def fit(self, X: Sequence[Sequence[float]], y: Sequence[float]):
-                print('called dummy model')
+        def dummy_create_backend_model(self, params):
+            print('create backend')
+            return mock_model
 
-        dummy_backend = DumyBackendModel(
-            chains=3,
-            warmup=1000,
-            shrinkage=10,
-            n_jobs=1,
-            n_itr=5000,
-            algorithm='NUTS')
+        # Replace backend class to mock one defined above.
+        monkeypatch.setattr(LinearRegression, '_create_backend_model',
+                            dummy_create_backend_model)
 
         lr = LinearRegression(
             chains=3, warmup=1000, n_jobs=1, n_itr=5000, algorithm='NUTS')
-
-        # replace backend model to dummy one.
-        # monkeypatch.setattr(lr, '_backend_model', dummy_backend)
-        mocker.patch.obejct('linear_regression.Backend')
 
         X = np.array([[5.1, 3.5, 1.4, 0.2], [5.4, 3.4, 1.7, 0.2],
                       [7., 3.2, 4.7, 1.4], [5., 2., 3.5, 1.],
@@ -54,3 +38,5 @@ class TestLinearRegression:
         ])
 
         lr.fit(X, y)
+
+        mock_model.fit.assert_called_once_with(X, y)
