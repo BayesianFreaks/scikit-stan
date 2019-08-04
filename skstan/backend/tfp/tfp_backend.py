@@ -13,7 +13,7 @@ class TFPBackend:
     _BACKEND = 'tfp'
 
     @classmethod
-    def name(cls):
+    def get_name(cls):
         """
 
         Returns

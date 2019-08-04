@@ -13,7 +13,7 @@ class StanBackend:
     _BACKEND = 'stan'
 
     @classmethod
-    def name(cls):
+    def get_name(cls):
         """
         Returns
         -------
