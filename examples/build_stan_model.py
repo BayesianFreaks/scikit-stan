@@ -20,8 +20,6 @@ def build_stan_model(stan_file_path):
         # Make a directory if `skstan/stan_model/:model_name` directory
         # does not exist.
         if not os.path.exists(dir_name):
-            print('target directory does not exist.')
-            print(dir_name)
             os.makedirs(dir_name)
         # Output picke file. The file is not tracked by git.
         with open(pkl_file_name, 'wb') as f:

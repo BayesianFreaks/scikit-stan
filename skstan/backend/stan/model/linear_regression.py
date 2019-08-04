@@ -10,7 +10,6 @@ class BaseLinearRegressionModel(metaclass=ABCMeta):
     """
     Base class for Linear regression using Stan.
     """
-
     @abstractmethod
     def get_model_file_path(self):
         pass
@@ -54,8 +53,9 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
         self._params = params
 
         if params.algorithm is None:
-            algorithm = 'NUTS'
-            self._algorithm = algorithm
+            self._algorithm = 'NUTS'
+        else:
+            self._algorithm = params.algorithm
 
         self._stanfit = None
         self._stan_model = self.load_model()
@@ -79,19 +79,19 @@ class StanLinearRegression(BaseLinearRegressionModel, StanClassifierMixin,
             'y': y,
             'N': X.shape[0],
             'F': X.shape[1],
-            'shrinkage': self._shrinkage
+            'shrinkage': self._params.shrinkage,
+            'sigma_upper': self._params.sigma_upper
         }
 
         if self._stan_model is None:
             raise ValueError('stan model is not loaded.')
-        self._stanfit = self._stan_model.sampling(
-            data=data,
-            iter=self._params.n_itr,
-            chains=self._params.chains,
-            n_jobs=self._params.n_jobs,
-            warmup=self._params.warmup,
-            algorithm=self._algorithm,
-            verbose=self._params.verbose)
+        self._stanfit = self._stan_model.sampling(data=data,
+                                                  iter=self._params.n_itr,
+                                                  chains=self._params.chains,
+                                                  n_jobs=self._params.n_jobs,
+                                                  warmup=self._params.warmup,
+                                                  algorithm=self._algorithm,
+                                                  verbose=self._params.verbose)
         return self
 
     def get_model_file_path(self):

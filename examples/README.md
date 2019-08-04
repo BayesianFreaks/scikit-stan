@@ -1,4 +1,4 @@
-# scikit-stan examples.
+# scikit-stan examples
 This directory contains examples of sickit-stan and its tools.
 
 # Build Stan model for example code
