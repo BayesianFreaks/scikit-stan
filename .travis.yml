@@ -19,7 +19,7 @@ install:
 script:
   # command to run tests.
   - python --version
-  - PYTHONPATH=$PWD:$PYTHONPATH py.test --cov=tests/
+  - PYTHONPATH=$PWD:$PYTHONPATH py.test --cov-config=.coveragerc --cov=tests/
 
 after_success:
   # submit coverage to codecov.
