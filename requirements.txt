@@ -1,3 +1,4 @@
+setuptools==41.0.1
 absl-py==0.7.1
 apipkg==1.5
 assertpy==0.14
