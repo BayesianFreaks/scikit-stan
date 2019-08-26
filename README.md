@@ -91,7 +91,7 @@ So let's check the histgram of first row with `pandas.Series`.
 import pandas as pd
 pd.Series(yp_dist[0]).hist(bins=20)
 ```
-![Histgram of first row](https://dfh6g0ekreo71.cloudfront.net/images/chart/hist.png) <!-- change this url to a appropriate one after setting domain. -->
+![Histgram of first row](./docs/images/hist.png) <!-- change this url to a appropriate one after setting domain. -->
 
 
 If you need a median of samples, you can get it with just `predict` method
