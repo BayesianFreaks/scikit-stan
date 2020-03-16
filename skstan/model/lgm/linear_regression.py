@@ -39,18 +39,18 @@ class LinearRegression(BaseLinearRegression):
                  n_jobs: int = -1,
                  algorithm: str = None,
                  verbose: bool = False,
-                 shrinkage: float = 10.0):
+                 shrinkage: float = 10.0,
+                 sigma_upper: float = 10.0):
 
         self._validate_params(chains, shrinkage)
-        params = self._pack_model_params(
-            chains=chains,
-            warmup=warmup,
-            n_itr=n_itr,
-            n_jobs=n_jobs,
-            algorithm=algorithm,
-            verbose=verbose,
-            shrinkage=shrinkage
-        )
+        params = self._pack_model_params(chains=chains,
+                                         warmup=warmup,
+                                         n_itr=n_itr,
+                                         n_jobs=n_jobs,
+                                         algorithm=algorithm,
+                                         shrinkage=shrinkage,
+                                         sigma_upper=sigma_upper,
+                                         verbose=verbose)
         self._backend_model = self._create_backend_model(params)
 
     @staticmethod
@@ -60,18 +60,20 @@ class LinearRegression(BaseLinearRegression):
 
     @staticmethod
     def _pack_model_params(chains: int, warmup: int, n_itr: int, n_jobs: int,
-                           algorithm: str, shrinkage: float, verbose: bool):
+                           algorithm: str, shrinkage: float,
+                           sigma_upper: float, verbose: bool):
+
         current_backend = get_current_backend()
+
         if current_backend == 'stan':
-            return StanLinearRegressionParams(
-                chains=chains,
-                warmup=warmup,
-                n_itr=n_itr,
-                n_jobs=n_jobs,
-                algorithm=algorithm,
-                verbose=verbose,
-                shrinkage=shrinkage
-            )
+            return StanLinearRegressionParams(chains=chains,
+                                              warmup=warmup,
+                                              n_itr=n_itr,
+                                              n_jobs=n_jobs,
+                                              algorithm=algorithm,
+                                              verbose=verbose,
+                                              shrinkage=shrinkage,
+                                              sigma_upper=sigma_upper)
         elif current_backend == 'tfp':
             # TODO: set parameters.
             return TFPLinearRegressionParams(verbose=verbose)

@@ -26,7 +26,7 @@ class StanModelLoadMixin:
             A StanModel object specified by model_name argument.
         """
 
-        model_file_name = self.get_model_file_name()
+        model_file_name = self.get_model_file_path()
         pkl_base_dir = self._base_dir()
         pkl_file_path = os.path.join(pkl_base_dir, model_file_name)
         with open(pkl_file_path, 'rb') as f:

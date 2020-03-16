@@ -64,7 +64,23 @@ class StanModelParams:
 
 
 class StanLinearRegressionParams(StanModelParams):
-    pass
+    def __init__(self, chains: int, warmup: int, n_itr: int, n_jobs: int,
+                 algorithm: str, verbose: bool, shrinkage: float,
+                 sigma_upper: float):
+
+        self._sigma_upper = sigma_upper
+
+        super().__init__(chains=chains,
+                         warmup=warmup,
+                         n_itr=n_itr,
+                         n_jobs=n_jobs,
+                         algorithm=algorithm,
+                         verbose=verbose,
+                         shrinkage=shrinkage)
+
+    @property
+    def sigma_upper(self):
+        return self._sigma_upper
 
 
 class StanLogisticRegressionParams(StanModelParams):

@@ -10,8 +10,8 @@ class TestStanModelLoadMixin:
         # Test that a pickled stan model is loaded and deserialized.
 
         class DummyModel(StanModelLoadMixin):
-            def get_model_file_name(self):
-                return 'linear_regression.pkl'
+            def get_model_file_path(self):
+                return 'regression/linear_regression.pkl'
 
         def mock_base_dir(dummy):
             return TEST_ROOT + '/test_model'
